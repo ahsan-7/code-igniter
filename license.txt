@@ -1,4 +1,6 @@
-the MIT License (MIT)
+the MITThis
+sad
+ License (MIT)
 
 Copyright (c) 2014 - 2017, British Columbia Institute of Technology
 
