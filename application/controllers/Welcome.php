@@ -269,7 +269,10 @@ class Welcome extends CI_Controller {
     {
         if ( $this->session->userdata('login')==1) 
         { 
-            $data['id_info'] = $this->school->getFromCategories();
+            $this->load->library('pagination');
+            $config['per_page'] = 5;
+            $this->pagination->initialize($config);
+            $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
             $data['category_info'] = $this->school->getAllCategories();
             $this->load->view('add_items',$data);   
         }       
@@ -442,10 +445,30 @@ class Welcome extends CI_Controller {
     {
         if ( $this->session->userdata('login')==1) 
         {
-            $data['modify_info'] = $this->school->getFromCategories();
-        
+            $this->load->library('pagination');
+
+            $config['base_url'] = base_url("welcome/modify_items/");
+            $config['total_rows'] = $this->school->getRows();
+            $config['per_page'] = 5;
+            $config['full_tag_open'] = "<ul class='pagination'>";
+            $config['full_tag_close'] = "</ul>";
+            $config['next_tag_open'] = "<li>";
+            $config['next_tag_close'] = "</li>";
+            $config['first_tag_open'] = "<li>";
+            $config['first_tag_close'] = "</li>";
+            $config['last_tag_open'] = "<li>";
+            $config['last_tag_close'] = "</li>";
+            $config['prev_tag_open'] = "<li>";
+            $config['prev_tag_close'] = "</li>";
+            $config['num_tag_open'] = "<li>";
+            $config['num_tag_close'] = "</li>";
+            $config['cur_tag_open'] = "<li class='active'><a>";
+            $config['cur_tag_close'] = "</a></li>";
+            $this->pagination->initialize($config);
+            $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+            $data['rows_info'] = $this->school->getRows();
             $data['category_info'] = $this->school->getAllCategories();
-        
+            
             $this->load->view('modify_items',$data);
                
         }       
@@ -455,6 +478,32 @@ class Welcome extends CI_Controller {
            redirect("welcome/loginform");
         }
         
+    }
+    public function search_items()
+    {
+        $id = $this->input->post('id');
+        $name = $this->input->post('name');
+        $category = $this->input->post('category');
+        if($data['search_result'] = $this->school->searchFromCategories($id,$name,$category))
+        {
+            $this->load->library('pagination');
+            $config['per_page'] = 5;
+            $this->pagination->initialize($config);
+            $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+            $data['category_info'] = $this->school->getAllCategories();
+            $data['rows_info'] = $this->school->getSearchRows($id,$name,$category);
+            $this->load->view('search_items',$data);
+        }
+        else
+        {
+            $this->load->library('pagination');
+            $config['per_page'] = 5;
+            $this->pagination->initialize($config);
+            $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+            $data['category_info'] = $this->school->getAllCategories();
+            $data['rows_info'] = $this->school->getSearchRows($id,$name,$category);
+            $this->load->view('search_items',$data);
+        }
     }
     public function edit($id)
     {
@@ -668,6 +717,10 @@ class Welcome extends CI_Controller {
         echo "test";
         print_r($this->email->send());
         print_r($this->email->print_debugger());
+    }
+    public function pagination()
+    {
+        
     }
 }
 

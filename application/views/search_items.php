@@ -7,7 +7,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 	<body style="background-color: #edf1f5;">
 		    <nav class="navbar navbar-inverse">
@@ -45,11 +44,11 @@
 	            	<div class="row">
 	            		<div class="col-xs-3">
 	            			<label>Unique Id</label>
-	            			<input class="form-control" type="text" name="id" placeholder="Unique Id">
+	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php echo set_value('id'); ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Name</label>
-	            			<input class="form-control" type="text" name="name" placeholder="Name">
+	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php echo set_value('name'); ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Category</label>
@@ -69,6 +68,7 @@
 	            	</div>
 	            </div>
 			</form>
+			<?php  ?>
 			<div class="white-box">
 				<b>Total Items:</b><p class="pull-right"><?php if($rows_info){echo $rows_info;}else{echo 0;} ?></p>
 			</div>
@@ -77,6 +77,7 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
+		    <?php if($search_result): ?>
 			<form class="table-responsive" style="text-align: center; width: auto;" action="" method="">
 				<table>
 			     	<tr style="background-color: #2cabe3;">
@@ -88,8 +89,9 @@
 			     		<th style="padding: 10px;">Delete:</th>
 			     		<th style="padding: 10px;">Edit:</th>
 			     	</tr>
-			        <?php foreach($modify_info as $m): ?>
-			     	<tr class="box-shadow" style="text-align: justify;">
+			        
+			        <?php foreach($search_result as $m): ?>
+			     	<tr style="text-align: justify;">
 			     		<td style="padding: 10px;"><?php echo $id = $m['id']; ?></td>
 			            <td style="padding: 10px;"><?php echo $m['name']; ?></td>
 			            <?php $category = getName($m['category']); foreach($category as $c): ?>
@@ -101,18 +103,14 @@
 			            <td style="padding: 10px;"><a href="<?php echo base_url("welcome/edit/$id"); ?>">Edit</a></td>     		
 			     	</tr>	
 			        <?php endforeach; ?>
+			        
 			        <tr>
 			            <td colspan="7" align="center"><?php ?></td>
 			        </tr>
 			        <div class="clearfix"></div>
 			    </table>
 			</form>
-				<div class="page">
-				<?php echo $this->pagination->create_links(); ?>
-				</div>	
-		</div>
-		<div class="white-box2">
-			
+			<?php endif; ?>
 		</div>
 	</body>
-</html>			
+</html>

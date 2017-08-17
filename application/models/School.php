@@ -100,10 +100,19 @@ class School extends CI_Model {
         $this->db->update('register',$data);
         return $data; 
     }
-    public function getFromCategories()
+    public function getFromCategories($limit,$offset)
     {
         $this->db->order_by("name", "asc");
-        return $this->db->get('categories')->result_array();
+        $this->db->limit($limit,$offset);
+        $query = $this->db->get('categories');
+        
+        return $query->result_array();
+    }
+    public function getRows()
+    {
+        $query = $this->db->get('categories');
+        
+        return $rows = $query->num_rows();
     }
     public function delete($id)
     {
@@ -158,6 +167,64 @@ class School extends CI_Model {
         else
         {
             return false;
+        }
+    }
+    public function searchFromCategories($id,$name,$category)
+    {
+        $this->db->where('id',$id);
+        $query = $this->db->get('categories');
+        if ($query->num_rows()>=1) {
+            return $query->result_array();     
+        }
+        else
+        {
+            $this->db->where('name',$name);
+            $query = $this->db->get('categories');
+            if ($query->num_rows()>=1) {
+            return $query->result_array();     
+            }
+            else
+            {
+                $this->db->where('category',$category);
+                $query = $this->db->get('categories');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->result_array();     
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+    }
+    public function getSearchRows($id,$name,$category)
+    {
+        $this->db->where('id',$id);
+        $query = $this->db->get('categories');
+        if ($query->num_rows()>=1) {
+            return $query->num_rows();     
+        }
+        else
+        {
+            $this->db->where('name',$name);
+            $query = $this->db->get('categories');
+            if ($query->num_rows()>=1) {
+            return $query->num_rows();     
+            }
+            else
+            {
+                $this->db->where('category',$category);
+                $query = $this->db->get('categories');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->num_rows();     
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }
