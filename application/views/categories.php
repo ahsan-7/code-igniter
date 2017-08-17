@@ -39,7 +39,7 @@
 		    	</ul>
 		  	</div>
 		</nav>
-		<div class="container">
+		<div class="container-fluid">
 		    <?php if($this->session->flashdata('msg')): ?>
 		    <div class="alert alert-danger">
 			    <b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
@@ -48,7 +48,7 @@
 	    	<div class="row">
 	    		<div class="col-lg-4">
 	    			<div>
-	    				<img style="width: 360px;height: 240px;" src="<?php echo base_url().'uploads/'.$category_info['image']; ?>" class="img-responsive">
+	    				<img style="width: 420px;height: 240px;" src="<?php echo base_url().'uploads/'.$category_info['image']; ?>" class="img-responsive">
 	    			</div>
 	    		</div>
 	    		<div class="col-lg-8">
@@ -62,7 +62,7 @@
 	    		<?php foreach($cd as $co): ?>
 	    		<div class="col-lg-4">
 	    			<div class="text-justify">
-	    				<img style="height: 240px;width: 360px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>" class="img-responsive">
+	    				<img style="height: 300px;width: 420px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>" class="img-responsive">
 	    				<p style="padding-top: 10px;"><b>Name: </b><?php echo $co['name']; ?></p>
 	    				<?php $category = getName($category_info['id']); foreach($category as $c): ?>
 	    				<p><b>Category: </b><?php echo $c['name']; ?></p>

@@ -39,13 +39,13 @@
 		    	</ul>
 		  	</div>
 		</nav>
-			<div class="container">
+			<div class="container-fluid">
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<form style="text-align: center; border: 5px solid black; width: 1140px; height: 550px; overflow: scroll;" action="" method="">
+			<form style="text-align: center; border: 5px solid black; width: auto; height: 550px; overflow: scroll;" action="" method="">
 				<table class="table-bordered table-hover">
 			     	<tr>
 			     		<th style="padding: 10px;">Id:</th>
