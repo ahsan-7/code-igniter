@@ -20,7 +20,7 @@
 		    	</ul>
 		  	</div>
 		</nav>
-		<div class="container">
+		<div class="container-fluid">
 		    <input type="hidden" name="id" value="<?php $id = $this->session->userdata('id'); ?>">
 			<form action="<?php echo base_url("welcome/update_password/$id"); ?>" method="post">
 				<div class="panel panel-primary">

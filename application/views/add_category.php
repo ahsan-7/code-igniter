@@ -38,7 +38,7 @@
 		    	</ul>
 		  	</div>
 		</nav>
-		<div class="container">    
+		<div class="container-fluid">    
 			<form action="<?php echo base_url("welcome/do_upload_category"); ?>" method="post" enctype="multipart/form-data">
 	      		<div class="panel panel-primary">	      		
 	        		<div class="panel-heading">	          			

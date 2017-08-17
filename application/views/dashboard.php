@@ -39,7 +39,7 @@
 		    	</ul>
 		  	</div>
 		</nav>
-			<div class="container">
+			<div class="container-fluid">
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
@@ -47,10 +47,10 @@
 		    <?php endif; ?>
 			<div class="row">
 				<div class="col-lg-2">
-					<img class="bg-img" style="height: 140px; width: 165px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+					<img class="bg-img" style="height: 175px; width: 200px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				</div>
 				<div class="col-lg-10">
-					<div class="header">
+					<div style="height: 175px;" class="header">
 						<p><strong>Id:</strong> <?php echo $this->session->userdata('id'); ?></p>
 						<p><strong>Name:</strong> <?php echo $this->session->userdata('name'); ?></p>
 						<p><strong>Email:</strong> <?php echo $this->session->userdata('email'); ?></p>
@@ -63,7 +63,7 @@
 			    	
 				<div class="col-lg-4">
 					<div class="categories">
-						<a href="<?php echo base_url("welcome/categories/$id"); ?>"><img style="height: 238px;width: 358px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
+						<a href="<?php echo base_url("welcome/categories/$id"); ?>"><img style="height: 300px;width: 418px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
 						<h1 style="text-align: center;"><a href="<?php echo base_url("welcome/categories/$id"); ?>"><?php echo $c['name'] ?></a></h1>
 					</div>
 				</div>

@@ -39,7 +39,7 @@
 		    	</ul>
 		  	</div>
 		</nav>
-			<div class="container">
+			<div class="container-fluid">
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
