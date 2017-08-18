@@ -8,7 +8,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
 </head>
-	<body>
+	<body style="background-color: #edf1f5;">
 		
 		    <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
@@ -50,7 +50,7 @@
 					<img class="bg-img" style="height: 175px; width: 200px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				</div>
 				<div class="col-lg-10">
-					<div style="height: 175px;" class="header">
+					<div style="height: 175px;" class="header box-shadow">
 						<p><strong>Id:</strong> <?php echo $this->session->userdata('id'); ?></p>
 						<p><strong>Name:</strong> <?php echo $this->session->userdata('name'); ?></p>
 						<p><strong>Email:</strong> <?php echo $this->session->userdata('email'); ?></p>

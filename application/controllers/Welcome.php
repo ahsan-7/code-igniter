@@ -509,9 +509,10 @@ class Welcome extends CI_Controller {
     {
         if ( $this->session->userdata('login')==1) 
         {
-            
-            $data['modify_info'] = $this->school->getFromCategories();
-        
+            $this->load->library('pagination');
+            $config['per_page'] = 5;
+            $this->pagination->initialize($config);
+            $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
             $data['category_info'] = $this->school->getAllCategories();
             $data['prev_info'] = $this->school->getCategories_edit($id);
        

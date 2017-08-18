@@ -1,13 +1,13 @@
 .header{
 	width: auto;
 	height: auto;
-	border: 1px solid rgb(233, 247, 252);
+	border: 1px solid white;
 	padding: 24px;
-	background-color: rgb(233, 247, 252);
+	background-color: white;
 }
 .categories {
-    border: 1px solid rgb(233, 247, 252);
-    background-color: rgb(233, 247, 252);
+    border: 1px solid white;
+    background-color: white;
     text-align: justify;
     margin-top: 20px;
     padding-top: 0px;
