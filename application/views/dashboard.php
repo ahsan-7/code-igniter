@@ -14,7 +14,6 @@
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
-		      		<li><a href="<?php echo base_url("welcome/profile_manager"); ?>">Profile Manager</a></li>
 		      		<li class="dropdown">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items Manager
 				        <span class="caret"></span></a>
@@ -35,28 +34,44 @@
 			        </li>
 		    	</ul>
 		    	<ul class="nav navbar-nav navbar-right">			      
-		      		<li><a href="<?php echo base_url("welcome/logout"); ?>">Log Out</a></li>
+		      		<li><a href="#"></a>
+
+		      		</li>
+		      		<li class="dropdown">
+				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+				        <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+				        <b><?php echo $this->session->userdata('name'); ?></b>
+				        <span class="caret"></span></a>
+				        <ul class="dropdown-menu dropdown-menu-user">
+				          <li><a>
+				          <div class="row">
+				          <div class="col-lg-4">
+				          	<img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+				          </div>
+				          <div class="col-lg-8">
+				          	<small><?php echo $this->session->userdata('id'); ?></small><br>
+				          	<small><?php echo $this->session->userdata('name'); ?></small><br>
+				        	<small><?php echo $this->session->userdata('email'); ?></small>
+				          </div>
+				          </div>
+				        </a></li>
+				        <li class="divider"></li>
+				          <li><a href="<?php echo base_url("welcome/profile_manager"); ?>"><span style="padding-right: 5px;" class="glyphicon glyphicon-cog"></span>Account Setting</a></li>
+				          <li class="divider"></li>
+				          <li><a href="<?php echo base_url("welcome/logout"); ?>"><span style="padding-right: 5px;" class="glyphicon glyphicon-off"></span>Logout</a></li>
+				        </ul>
+			        </li>
 		    	</ul>
 		  	</div>
 		</nav>
+		<div style="margin-top: -20px; background-color: white; height: 40px;"></div>
 			<div class="container-fluid">
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<div class="row">
-				<div class="col-lg-2">
-					<img class="bg-img" style="height: 175px; width: 200px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
-				</div>
-				<div class="col-lg-10">
-					<div style="height: 175px;" class="header box-shadow">
-						<p><strong>Id:</strong> <?php echo $this->session->userdata('id'); ?></p>
-						<p><strong>Name:</strong> <?php echo $this->session->userdata('name'); ?></p>
-						<p><strong>Email:</strong> <?php echo $this->session->userdata('email'); ?></p>
-					</div>
-				</div>
-			</div>
+			<!--  -->
 			<div class="row">
 			    <?php foreach($category_info as $c): ?>
 			    	<input type="hidden" name="id" value="<?php echo $id = $c['id']; ?>">
@@ -69,14 +84,8 @@
 				</div>
 			<?php endforeach; ?>	
 			</div>
-		</div>	  	
-		<nav style="padding-bottom: 0px; margin-bottom: 0px;" class="navbar navbar-inverse navbar-fixed-bottom">
-	  	    <div class="container-fluid">
-    		    <ul class="nav navbar-nav">
-    		        <li><a href="#">&copy Registered</a></li>
-	    	    </ul>
-	  	    </div>
-	    </nav>
+		</div>
+	  	<div style="background-color: white; height: 50px; margin-top: 20px;"></div>
 	</body>
 </html>
 	
