@@ -8,12 +8,12 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/category.css"); ?>">
 </head>
-	<body>
+	<body style="background-color: #edf1f5;">
         
             <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
-	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
+	    		    <li><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li><a href="<?php echo base_url("welcome/profile_manager"); ?>">Profile Manager</a></li>
 		      		<li class="dropdown">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items Manager
@@ -46,23 +46,23 @@
 			</div>
 	    	<?php endif; ?>
 	    	<div class="row">
-	    		<div class="col-lg-4">
+	    		<div class="col-lg-3">
 	    			<div>
 	    				<img style="width: 420px;height: 240px;" src="<?php echo base_url().'uploads/'.$category_info['image']; ?>" class="img-responsive">
 	    			</div>
 	    		</div>
-	    		<div class="col-lg-8">
-	    			<div class="text-alignment">
+	    		<div class="col-lg-9">
+	    			<div class="text-alignment box-shadow">
 	    				<p><b>Category: </b><?php echo $category_info['name']; ?></p>
 	    				<p style="height: 166px;"><b>Description: </b><?php echo $category_info['description']; ?></p>
 	    			</div>
 	    		</div>
 	    	</div><br><br>
-	    	<div class="row">
+	    	<div style="padding-bottom: 20px;" class="row">
 	    		<?php foreach($cd as $co): ?>
-	    		<div class="col-lg-4">
-	    			<div class="text-justify">
-	    				<img style="height: 300px;width: 420px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>" class="img-responsive">
+	    		<div class="col-lg-3">
+	    			<div class="text-justify box-shadow">
+	    				<img style="height: 230px;width: 307px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>" class="img-responsive">
 	    				<p style="padding-top: 10px;"><b>Name: </b><?php echo $co['name']; ?></p>
 	    				<?php $category = getName($category_info['id']); foreach($category as $c): ?>
 	    				<p><b>Category: </b><?php echo $c['name']; ?></p>
@@ -72,6 +72,9 @@
 	    		</div>		    	
 	    		<?php endforeach; ?>
 	    	</div>
+		</div>
+		<div style="background-color: white; height: 50px;">
+			
 		</div>
 	</body>
 </html>			

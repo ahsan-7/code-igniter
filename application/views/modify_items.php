@@ -13,9 +13,9 @@
 		    <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
-	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
+	    		    <li><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li><a href="<?php echo base_url("welcome/profile_manager"); ?>">Profile Manager</a></li>
-		      		<li class="dropdown">
+		      		<li class="dropdown active">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items Manager
 				        <span class="caret"></span></a>
 				        <ul class="dropdown-menu">
@@ -45,11 +45,11 @@
 	            	<div class="row">
 	            		<div class="col-xs-3">
 	            			<label>Unique Id</label>
-	            			<input class="form-control" type="text" name="id" placeholder="Unique Id">
+	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php echo set_value('id'); ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Name</label>
-	            			<input class="form-control" type="text" name="name" placeholder="Name">
+	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php echo set_value('name'); ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Category</label>

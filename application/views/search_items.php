@@ -55,7 +55,11 @@
 	            			<select class="form-control" name="category">
 	            				<option value>Category</option>
 	            				<?php foreach($category_info as $c): ?>
-	            				<option value="<?php echo $c['id']; ?>"><?php echo $c['name']; ?></option>
+	            				<option value="<?php echo $c['id']; ?>"
+	            				<?php echo $search_result[0]['category']==$c['id'] ? "selected":"" ?>	
+	            				>
+	            				<?php echo $c['name']; ?>	
+	            				</option>
 	            			    <?php endforeach; ?>
 	            			</select>
 	            		</div>
@@ -111,6 +115,9 @@
 			    </table>
 			</form>
 			<?php endif; ?>
+			<div class="page">
+				<?php echo $this->pagination->create_links(); ?>
+			</div>
 		</div>
 	</body>
 </html>

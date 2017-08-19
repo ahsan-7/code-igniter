@@ -8,11 +8,11 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
 </head>
-	<body>
+	<body style="background-color: #edf1f5;">
 	    <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
-	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
+	    		    <li><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li><a href="<?php echo base_url("welcome/profile_manager"); ?>">Profile Manager</a></li>
 		      		<li class="dropdown">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items Manager
@@ -23,7 +23,7 @@
 				          <li><a href="<?php echo base_url("welcome/modify_items"); ?>">Modify Item</a></li>
 				        </ul>
 			        </li>
-			        <li class="dropdown">
+			        <li class="dropdown active">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category Manager
 				        <span class="caret"></span></a>
 				        <ul class="dropdown-menu">
@@ -38,7 +38,7 @@
 		    	</ul>
 		  	</div>
 		</nav>
-		<div class="container-fluid">    
+		<div class="container-fluid white-box2">    
 			<form action="<?php echo base_url("welcome/do_upload_category"); ?>" method="post" enctype="multipart/form-data">
 	      		<div class="panel panel-primary">	      		
 	        		<div class="panel-heading">	          			

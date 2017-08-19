@@ -79,6 +79,11 @@ class School extends CI_Model {
         $this->db->order_by("name", "asc");
         return $this->db->get('category')->result_array();
     }
+    /*public function getAllCategorie()
+    {
+        $this->db->order_by("name", "asc");
+        return $this->db->get('category')->result_array();
+    }*/
     public function getCategory($id)
     {
         $this->db->where('id',$id);
@@ -108,12 +113,28 @@ class School extends CI_Model {
         
         return $query->result_array();
     }
+    public function getFromCategorie()
+    {
+        $this->db->order_by("name", "asc");
+        $query = $this->db->get('categories');
+        
+        return $query->result_array();
+    }
     public function getRows()
     {
         $query = $this->db->get('categories');
         
         return $rows = $query->num_rows();
     }
+    /*public function getRow($id,$name,$category)
+    {
+        $this->db->where('id',$id);
+        $this->db->or_where('name',$name);
+        $this->db->or_where('category',$category);
+        $query = $this->db->get('categories');
+        
+        return $query->num_rows();
+    }*/
     public function delete($id)
     {
         $this->db->where('id', $id);
@@ -169,64 +190,65 @@ class School extends CI_Model {
             return false;
         }
     }
-    public function searchFromCategories($id,$name,$category)
+    public function searchFromCategories($id,$name,$category,$limit,$offset)
     {
-        $this->db->where('id',$id);
+        
+        if(!empty($id))
+        {
+            $this->db->or_where('id',$id);
+        }
+        if(!empty($name))
+        {
+            $this->db->or_where('name',$name);
+        }
+        if(!empty($category))
+        {
+            $this->db->or_where('category',$category);
+        }
+        $this->db->order_by("name", "asc");
+        $this->db->limit($limit,$offset);
         $query = $this->db->get('categories');
-        if ($query->num_rows()>=1) {
+        if ($query->num_rows()>=1) 
+        {
             return $query->result_array();     
         }
         else
         {
-            $this->db->where('name',$name);
-            $query = $this->db->get('categories');
-            if ($query->num_rows()>=1) {
-            return $query->result_array();     
-            }
-            else
-            {
-                $this->db->where('category',$category);
-                $query = $this->db->get('categories');
-                if ($query->num_rows()>=1) 
-                {
-                    return $query->result_array();     
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return false;
         }
+
+   
     }
     public function getSearchRows($id,$name,$category)
     {
-        $this->db->where('id',$id);
+        if(!empty($id))
+        {
+            $this->db->or_where('id',$id);
+        }
+        if(!empty($name))
+        {
+            $this->db->or_where('name',$name);
+        }
+        if(!empty($category))
+        {
+            $this->db->or_where('category',$category);
+        }
+
         $query = $this->db->get('categories');
-        if ($query->num_rows()>=1) {
+        if ($query->num_rows()>=1) 
+        {
             return $query->num_rows();     
         }
         else
         {
-            $this->db->where('name',$name);
-            $query = $this->db->get('categories');
-            if ($query->num_rows()>=1) {
-            return $query->num_rows();     
-            }
-            else
-            {
-                $this->db->where('category',$category);
-                $query = $this->db->get('categories');
-                if ($query->num_rows()>=1) 
-                {
-                    return $query->num_rows();     
-                }
-                else
-                {
-                    return false;
-                }
-            }
+            return false;
         }
     }
+    public function search_handler()
+    {
+        
+    }
+    
 }
 
 

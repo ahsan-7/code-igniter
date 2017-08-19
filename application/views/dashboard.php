@@ -61,9 +61,9 @@
 			    <?php foreach($category_info as $c): ?>
 			    	<input type="hidden" name="id" value="<?php echo $id = $c['id']; ?>">
 			    	
-				<div class="col-lg-4">
+				<div class="col-lg-3">
 					<div class="categories box-shadow">
-						<a href="<?php echo base_url("welcome/categories/$id"); ?>"><img style="height: 300px;width: 418px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
+						<a href="<?php echo base_url("welcome/categories/$id"); ?>"><img style="height: 245px;width: 305px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
 						<h1 style="text-align: center;"><a href="<?php echo base_url("welcome/categories/$id"); ?>"><?php echo $c['name'] ?></a></h1>
 					</div>
 				</div>

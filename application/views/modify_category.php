@@ -8,12 +8,12 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
 </head>
-	<body>
+	<body style="background-color: #edf1f5;">
 		
 		    <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
-	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
+	    		    <li><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li><a href="<?php echo base_url("welcome/profile_manager"); ?>">Profile Manager</a></li>
 		      		<li class="dropdown">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Items Manager
@@ -24,7 +24,7 @@
 				          <li><a href="<?php echo base_url("welcome/modify_items"); ?>">Modify Item</a></li>
 				        </ul>
 			        </li>
-			        <li class="dropdown">
+			        <li class="dropdown active">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Category Manager
 				        <span class="caret"></span></a>
 				        <ul class="dropdown-menu">
@@ -39,15 +39,38 @@
 		    	</ul>
 		  	</div>
 		</nav>
-			<div class="container-fluid">
+		<div class="container-fluid">
+			<form method="post" action="<?php echo base_url("welcome/search_items"); ?>">
+		    	<div class="search-box">
+	            	<div class="row">
+	            		<div class="col-xs-4">
+	            			<label>Unique Id</label>
+	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php echo set_value('id'); ?>">
+	            		</div>
+	            		<div class="col-xs-4">
+	            			<label>Name</label>
+	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php echo set_value('name'); ?>">
+	            		</div>
+	            		<div class="col-xs-2" style="margin-top: 25px; margin-bottom: 15px;"> 
+	            			<button class="form-control btn btn-primary btn-block" type="submit">Search</button>
+	            		</div>
+	            		<div class="col-xs-2" style="margin-top: 25px; margin-bottom: 15px;"> 
+	            			<a href="<?php echo base_url("welcome/modify_category"); ?>" class="btn btn-danger btn-block">Reset</a>
+	            		</div>
+	            	</div>
+	            </div>
+			</form>
+			<div class="white-box">
+				<b>Total Categories:</b><p class="pull-right"><?php echo 0; ?></p>
+			</div>
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<form style="text-align: center; border: 5px solid black; width: auto; height: 550px; overflow: scroll;" action="" method="">
-				<table class="table-bordered table-hover">
-			     	<tr>
+			<form style="text-align: center; width: auto;" action="" method="">
+				<table>
+			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
 			     		<th style="padding: 10px;">Name:</th>
 			     		<th style="padding: 10px;">Description:</th>
@@ -56,7 +79,7 @@
 			     		<th style="padding: 10px;">Edit:</th>
 			     	</tr>
 			        <?php foreach($category_info as $m): ?>
-			     	<tr style="text-align: justify;">
+			     	<tr style="text-align: justify;" class="box-shadow">
 			     		<td style="padding: 10px;"><?php echo $id = $m['id']; ?></td>
 			            <td style="padding: 10px;"><?php echo $m['name']; ?></td>
 			            <td style="padding: 10px;"><?php echo $m['description']; ?></td>
