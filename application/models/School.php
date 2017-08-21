@@ -271,6 +271,27 @@ class School extends CI_Model {
             return false;
         }
     }
+    public function getSearchR($id,$name)
+    {
+        if(!empty($id))
+        {
+            $this->db->or_where('id',$id);
+        }
+        if(!empty($name))
+        {
+            $this->db->or_where('name',$name);
+        }
+        
+        $query = $this->db->get('category');
+        if ($query->num_rows()>=1) 
+        {
+            return $query->num_rows();     
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 

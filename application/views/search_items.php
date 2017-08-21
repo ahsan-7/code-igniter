@@ -107,8 +107,8 @@
 			</div>
 		    <?php endif; ?>
 		    <?php if($search_result): ?>
-			<form class="table-responsive" style="text-align: center; width: 1319px;" action="" method="">
-				<table style=" width: 1319px;">
+			<form class="table-responsive" style="text-align: center; width: 1289px;" action="" method="">
+				<table style=" width: 1289px;">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
 			     		<th style="padding: 10px;">Name:</th>
@@ -144,6 +144,6 @@
 				<?php echo $this->pagination->create_links(); ?>
 			</div>
 		</div>
-		<div style="background-color: white; height: 50px;"></div>
+		<div class="footer" style="background-color: white; height: 60px;"></div>
 	</body>
 </html>

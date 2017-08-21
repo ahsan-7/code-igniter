@@ -609,7 +609,7 @@ class Welcome extends CI_Controller {
             $id = $this->input->post('id');
             $name = $this->input->post('name');
             $data['search_info'] = $this->school->searchAllCategories($id,$name);
-            $data['rows_info'] = $this->school->getRows_category();
+            $data['rows_info'] = $this->school->getSearchR($id,$name);
             $this->load->view('search_category',$data);      
         }       
         else

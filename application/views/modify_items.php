@@ -102,7 +102,7 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<form class="table-responsive" style="text-align: center; width: 1319px;" action="" method="">
+			<form class="table-responsive" style="text-align: center; width: 1289px;" action="" method="">
 				<table>
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>

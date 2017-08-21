@@ -93,7 +93,7 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<form style="text-align: center; width: 1319px;" action="" method="">
+			<form style="text-align: center; width: 1289px;" action="" method="">
 				<table style=" margin-bottom: 20px;">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
@@ -116,6 +116,6 @@
 			    </table>
 			</form>
 		</div>
-		<div class="footer" style="background-color: white; height: 50px;"></div>
+		<div class="footer" style="background-color: white; height: 60px;"></div>
 	</body>
 </html>
