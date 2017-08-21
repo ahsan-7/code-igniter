@@ -63,13 +63,13 @@
 		    	</ul>
 		  	</div>
 		</nav>
-		<div class="container-fluid white-box2">    
+		<div class="container">    
 			<form action="<?php echo base_url("welcome/do_upload_items"); ?>" method="post" enctype="multipart/form-data">
-	      		<div class="panel panel-primary">	      		
-	        		<div class="panel-heading">	          			
-	          			<h4>Add Items</h4>
-	        		</div>
-	        		<div class="panel-body">
+	      		<div class="heading-bg">	          			
+	          		<h4>Add Items</h4>
+	        	</div>
+	      		<div class="white-box box-shadow">	      		
+	        		<div class="">
 	           			<input type="hidden" name="id" value="<?php echo $category_info[0]['id']; ?>">
 	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo set_value('name'); ?>">
                           
@@ -89,11 +89,13 @@
 						</div>
 					    <?php endif; ?>
 	        		</div>
-	        		<div class="panel-footer">
-	          			<button class="btn btn-info">Submit</button>
+	        		<br>
+	        		<div class="">
+	          			<button class="btn-size btn btn-info btn-block">Submit</button>
 	        		</div>	        		
 	      		</div>
 	        </form>	  	
 		</div>
+		<div style="margin-top: 73px; background-color: white; height: 50px;"></div>
 	</body>
 </html>		

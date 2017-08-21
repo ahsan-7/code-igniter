@@ -65,7 +65,7 @@
 		  	</div>
 		</nav>
 		<div class="container-fluid">
-			<form method="post" action="<?php echo base_url("welcome/search_items"); ?>">
+			<form method="post" action="<?php echo base_url("welcome/search_category"); ?>">
 		    	<div class="search-box">
 	            	<div class="row">
 	            		<div class="col-xs-4">
@@ -86,14 +86,14 @@
 	            </div>
 			</form>
 			<div class="white-box">
-				<b>Total Categories:</b><p class="pull-right"><?php echo 0; ?></p>
+				<b>Total Categories:</b><p class="pull-right"><?php echo $rows_info; ?></p>
 			</div>
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<form style="text-align: center; width: auto;" action="" method="">
+			<form style="text-align: center; width: 1319px;" action="" method="">
 				<table>
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
@@ -118,6 +118,10 @@
 			        </tr>
 			    </table>
 			</form>
+			<div class="page">
+				<?php echo $this->pagination->create_links(); ?>
+			</div>
 		</div>
+		<div style="background-color: white; height: 50px;"></div>
 	</body>
 </html>

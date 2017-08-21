@@ -8,7 +8,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
 </head>
-	<body>
+	<body style="background-color: #edf1f5;">
 		
 		   <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
@@ -64,7 +64,7 @@
 		    	</ul>
 		  	</div>
 		</nav>
-			<div class="container-fluid">
+			<div class="container">
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
@@ -72,11 +72,11 @@
 		    <?php endif; ?>		    
 			<form action="<?php echo base_url("welcome/do_upload_edit_items"); ?>" method="post" enctype="multipart/form-data">
 			    <input type="hidden" name="id" value="<?php echo $id = $prev_info['id']; ?>">
-			    <div class="panel panel-primary">	
-	        		<div class="panel-heading">
-	          			<h4>Update Item</h4>
-	        		</div>
-	        		<div class="panel-body">
+			    <div class="heading-bg">
+	          		<h4>Update Item</h4>
+	        	</div>
+			    <div class="white-box box-shadow">	
+	        		<div class="">
 	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo $prev_info['name']; ?>"><br>
 	            		<b>Category:</b> 
 
@@ -93,11 +93,13 @@
 	            		<div style="width: 200px"><img src="<?php echo base_url().'uploads/'.$prev_info['image']; ?>" class="img-responsive"></div>
 						<b>Upload Img:</b><input type="file" name="userfile" size="20">
 	        		</div>
-	        		<div class="panel-footer">
-	          			<input type="submit" name="submit" class="btn btn-info" value="Submit">
+	        		<br>
+	        		<div class="">
+	          			<input type="submit" name="submit" class="btn-size btn-block btn btn-info" value="Submit">
 	        		</div>
 			  	</div>
 			</form>  	
 		</div>
+		<div style="background-color: white; height: 50px;"></div>
 	</body>
 </html>			

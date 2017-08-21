@@ -69,11 +69,11 @@
 	            	<div class="row">
 	            		<div class="col-xs-3">
 	            			<label>Unique Id</label>
-	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php echo set_value('id'); ?>">
+	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php echo $this->session->userdata('id_item'); ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Name</label>
-	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php echo set_value('name'); ?>">
+	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php echo $this->session->userdata('name_item'); ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Category</label>
@@ -107,8 +107,8 @@
 			</div>
 		    <?php endif; ?>
 		    <?php if($search_result): ?>
-			<form class="table-responsive" style="text-align: center; width: auto;" action="" method="">
-				<table>
+			<form class="table-responsive" style="text-align: center; width: 1319px;" action="" method="">
+				<table style=" width: 1319px;">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
 			     		<th style="padding: 10px;">Name:</th>
@@ -144,5 +144,6 @@
 				<?php echo $this->pagination->create_links(); ?>
 			</div>
 		</div>
+		<div style="background-color: white; height: 50px;"></div>
 	</body>
 </html>

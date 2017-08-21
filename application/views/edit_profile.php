@@ -100,5 +100,6 @@
 	      		</div>	
 			</form>  	
 		</div>
+		<div style="background-color: white; height: 50px;"></div>
 	</body>
 </html>		
