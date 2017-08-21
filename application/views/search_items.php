@@ -10,7 +10,7 @@
 </head>
 	<body style="background-color: #edf1f5;">
 	    <nav class="navbar navbar-inverse">
-		  	<div class="container-fluid">
+		  	<div class="contain">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li class="dropdown">
@@ -36,7 +36,7 @@
 		      		<li><a href="#"></a>
 
 		      		</li>
-		      		<li class="dropdown">
+		      		<li class="dropdown user-info">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 				        <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				        <b><?php echo $this->session->userdata('name'); ?></b>
@@ -64,27 +64,24 @@
 		  	</div>
 		</nav>
 		<div class="container-fluid">
-		    <form method="post" action="<?php echo base_url("welcome/search_items"); ?>">
+		    <form method="get" action="<?php echo base_url("welcome/search_items"); ?>">
 		    	<div class="search-box">
 	            	<div class="row">
 	            		<div class="col-xs-3">
 	            			<label>Unique Id</label>
-	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php echo $this->session->userdata('id_item'); ?>">
+	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php if(isset($_GET['id'])){echo $_GET['id'];} ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Name</label>
-	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php echo $this->session->userdata('name_item'); ?>">
+	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php if(isset($_GET['name'])){echo $_GET['name'];} ?>">
 	            		</div>
 	            		<div class="col-xs-3">
 	            			<label>Category</label>
+
 	            			<select class="form-control" name="category">
-	            				<option value>Category</option>
+	            				<option value="">Category</option>
 	            				<?php foreach($category_info as $c): ?>
-	            				<option value="<?php echo $c['id']; ?>"
-	            				<?php echo $search_result[0]['category']==$c['id'] ? "selected":"" ?>	
-	            				>
-	            				<?php echo $c['name']; ?>	
-	            				</option>
+	            				<option value="<?php echo $c['id']; ?>" <?php if(isset($_GET['category'])){ if($_GET['category']==$c['id']){echo "selected";}} ?> ><?php echo $c['name']; ?></option>
 	            			    <?php endforeach; ?>
 	            			</select>
 	            		</div>
@@ -107,8 +104,8 @@
 			</div>
 		    <?php endif; ?>
 		    <?php if($search_result): ?>
-			<form class="table-responsive" style="text-align: center; width: 1289px;" action="" method="">
-				<table style=" width: 1289px;">
+			<form class="table-responsive" style="text-align: center; width: 1303px;" action="" method="">
+				<table style=" width: 1303px;">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
 			     		<th style="padding: 10px;">Name:</th>

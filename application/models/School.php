@@ -202,7 +202,7 @@ class School extends CI_Model {
         
         if(!empty($id))
         {
-            $this->db->or_where('id',$id);
+            $this->db->where('id',$id);
         }
         if(!empty($name))
         {
@@ -212,16 +212,24 @@ class School extends CI_Model {
         {
             $this->db->or_where('category',$category);
         }
-        $this->db->limit($limit,$offset);
-        $query = $this->db->get('categories');
-        if ($query->num_rows()>=1) 
+        if(!empty($id) || !empty($name) || !empty($category))
         {
-            return $query->result_array();     
+            $this->db->limit($limit,$offset);
+            $query = $this->db->get('categories');
+            if ($query->num_rows()>=1) 
+            {
+                return $query->result_array();     
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
             return false;
         }
+
 
    
     }
@@ -229,7 +237,7 @@ class School extends CI_Model {
     {
         if(!empty($id))
         {
-            $this->db->or_where('id',$id);
+            $this->db->where('id',$id);
         }
         if(!empty($name))
         {
@@ -239,14 +247,19 @@ class School extends CI_Model {
         {
             $this->db->or_where('category',$category);
         }
-        
-        $query = $this->db->get('categories');
-        if ($query->num_rows()>=1) 
+        if(!empty($id) || !empty($name) || !empty($category))
         {
-            return $query->num_rows();     
+            $query = $this->db->get('categories');
+            if ($query->num_rows()>=1) 
+            {
+                return $query->num_rows();     
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
-        {
+        else{
             return false;
         }
     }
@@ -254,17 +267,23 @@ class School extends CI_Model {
     {
         if(!empty($id))
         {
-            $this->db->or_where('id',$id);
+            $this->db->where('id',$id);
         }
         if(!empty($name))
         {
             $this->db->or_where('name',$name);
         }
-
-        $query = $this->db->get('category');
-        if ($query->num_rows()>=1) 
+        if(!empty($id) || !empty($name))
         {
-            return $query->result_array();     
+            $query = $this->db->get('category');
+            if ($query->num_rows()>=1) 
+            {
+                return $query->result_array();     
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
@@ -275,20 +294,25 @@ class School extends CI_Model {
     {
         if(!empty($id))
         {
-            $this->db->or_where('id',$id);
+            $this->db->where('id',$id);
         }
         if(!empty($name))
         {
             $this->db->or_where('name',$name);
         }
-        
-        $query = $this->db->get('category');
-        if ($query->num_rows()>=1) 
+        if(!empty($id) || !empty($name))
         {
-            return $query->num_rows();     
+            $query = $this->db->get('category');
+            if ($query->num_rows()>=1) 
+            {
+                return $query->num_rows();     
+            }
+            else
+            {
+                return false;
+            }
         }
-        else
-        {
+        else{
             return false;
         }
     }

@@ -10,8 +10,8 @@
 </head>
 	<body style="background-color: #edf1f5;">
 		
-		    <nav class="navbar navbar-inverse">
-		  	<div class="container-fluid">
+		<nav class="navbar navbar-inverse">
+		  	<div class="contain">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li class="dropdown">
@@ -37,7 +37,7 @@
 		      		<li><a href="#"></a>
 
 		      		</li>
-		      		<li class="dropdown">
+		      		<li class="dropdown user-info">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 				        <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				        <b><?php echo $this->session->userdata('name'); ?></b>
@@ -62,6 +62,7 @@
 				        </ul>
 			        </li>
 		    	</ul>
+		    	</div>
 		  	</div>
 		</nav>
 		<div style="margin-top: -20px; background-color: white; height: 40px;"></div>

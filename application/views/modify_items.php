@@ -11,7 +11,7 @@
 </head>
 	<body style="background-color: #edf1f5;">
 		    <nav class="navbar navbar-inverse">
-		  	<div class="container-fluid">
+		  	<div class="contain">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li class="dropdown">
@@ -37,7 +37,7 @@
 		      		<li><a href="#"></a>
 
 		      		</li>
-		      		<li class="dropdown">
+		      		<li class="dropdown user-info">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 				        <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				        <b><?php echo $this->session->userdata('name'); ?></b>
@@ -65,7 +65,7 @@
 		  	</div>
 		</nav>
 		<div class="container-fluid">
-		    <form method="post" action="<?php echo base_url("welcome/search_items"); ?>">
+		    <form method="get" action="<?php echo base_url("welcome/search_items"); ?>">
 		    	<div class="search-box">
 	            	<div class="row">
 	            		<div class="col-xs-3">
@@ -102,7 +102,7 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<form class="table-responsive" style="text-align: center; width: 1289px;" action="" method="">
+			<form class="table-responsive" style="text-align: center; width: 1303px;" action="" method="">
 				<table>
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>

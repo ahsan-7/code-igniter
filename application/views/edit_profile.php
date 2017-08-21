@@ -10,7 +10,7 @@
 </head>
 	<body style="background-color: #edf1f5;">
         <nav class="navbar navbar-inverse">
-		  	<div class="container-fluid">
+		  	<div class="contain">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li class="dropdown">
@@ -36,7 +36,7 @@
 		      		<li><a href="#"></a>
 
 		      		</li>
-		      		<li class="dropdown">
+		      		<li class="dropdown user-info">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 				        <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				        <b><?php echo $this->session->userdata('name'); ?></b>
@@ -79,8 +79,14 @@
 	        			<div class="row">
 	        				<div class="col-lg-offset-2 col-lg-8">
 	        					<img src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-design img-responsive img-circle">
-								<input class="input-field" type="file" name="userfile" value="">
 	        				</div>	
+	        		    </div>
+	        		    <div class="row">
+	        		    	<div class="col-lg-2 pull-right">
+	        		    		<span class="btn btn-primary btn-file">
+								    Upload Image<input type="file" name="userfile">
+								</span>
+	        		    	</div>
 	        		    </div>
 	        		    <input type="hidden" name="id" value="<?php $id = $this->session->userdata('id'); ?>">
 	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('name'); ?>">
@@ -89,7 +95,7 @@
 	            		<br>
 	            		<b>Phone:</b> <input type="text" name="phone" class="form-control" value="<?php echo $this->session->userdata('phone'); ?>">    
 	            		<br>
-	            		<a href="<?php echo base_url("welcome/change_password/$id"); ?>"><b>Change Password:</b></a>
+	            		<a class="btn btn-primary btn-block" href="<?php echo base_url("welcome/change_password/$id"); ?>"><b>Change Password</b></a>
 	        		</div>
 	        		<br>
 	        		<div class="row">

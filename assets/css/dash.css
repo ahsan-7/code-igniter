@@ -174,5 +174,8 @@ tr:nth-child(odd){background-color: white;}
     top: 950px; 
 } 
  .container-fluid{
-    width: 1319px;
+    width: 1333px;
+}
+.contain{
+    width: 1333px;
 }

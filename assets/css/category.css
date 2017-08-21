@@ -97,10 +97,12 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.container-fluid{
-    width: 1319px;
+ .container-fluid{
+    width: 1333px;
 }
-
+.contain{
+    width: 1333px;
+}
 
 
 

@@ -11,7 +11,7 @@
 	<body style="background-color: #edf1f5;">
 		
 		    <nav class="navbar navbar-inverse">
-		  	<div class="container-fluid">
+		  	<div class="contain">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
 		      		<li class="dropdown">
@@ -37,7 +37,7 @@
 		      		<li><a href="#"></a>
 
 		      		</li>
-		      		<li class="dropdown">
+		      		<li class="dropdown user-info">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 				        <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				        <b><?php echo $this->session->userdata('name'); ?></b>
@@ -86,14 +86,15 @@
 	            </div>
 			</form>
 			<div class="white-box">
-				<b>Total Categories:</b><p class="pull-right"><?php echo $rows_info; ?></p>
+				<b>Total Categories:</b><p class="pull-right"><?php if($rows_info){echo $rows_info;}else{echo 0;} ?></p>
 			</div>
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
-			<form style="text-align: center; width: 1289px;" action="" method="">
+		    <?php if($search_info): ?>
+			<form style="text-align: center; width: 1303px;" action="" method="">
 				<table style=" margin-bottom: 20px;">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
@@ -115,6 +116,7 @@
 			        <?php endforeach; ?>
 			    </table>
 			</form>
+			<?php endif; ?>
 		</div>
 		<div class="footer" style="background-color: white; height: 60px;"></div>
 	</body>

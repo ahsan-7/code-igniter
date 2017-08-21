@@ -405,7 +405,7 @@ class Welcome extends CI_Controller {
     {
             $config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'gif|jpg|png';
-            // $config['max_size']             = 50;
+            $config['max_size']             = 1000000;
             // $config['min_width']            = 960;
             // $config['min_height']            = 240;
             // $config['max_width']            = 1024;
@@ -468,6 +468,7 @@ class Welcome extends CI_Controller {
             $config['first_link'] = false;
             $config['last_link'] = false;
             // $config['use_page_numbers'] = TRUE;
+            $config['enable_query_strings'] = TRUE;  
             $config['last_tag_open'] = "<li>";
             $config['last_tag_close'] = "</li>";
             $config['prev_tag_open'] = "<li>";
@@ -493,24 +494,11 @@ class Welcome extends CI_Controller {
     }
     public function search_items()
     {
-        $this->session->set_userdata(['id_item'=>""]);
-        $this->session->set_userdata(['name_item'=>""]);
-        $this->session->set_userdata(['category_item'=>""]);
-        $id = $this->input->post('id');
-        $name = $this->input->post('name');
-        $category = $this->input->post('category');
-        $this->session->set_userdata(['id_item'=>$id]);
-        $this->session->set_userdata(['name_item'=>$name]);
-        $this->session->set_userdata(['category_item'=>$category]);
-        redirect("welcome/search_page");   
-    }
-    public function search_page()
-    {
-        $id = $this->session->userdata('id_item');
-        $name = $this->session->userdata('name_item');
-        $category = $this->session->userdata('category_item');
+        $id = $this->input->get('id');
+        $name = $this->input->get('name');
+        $category = $this->input->get('category');
         $this->load->library('pagination');
-        $config['base_url'] = base_url("welcome/search_page/");
+        $config['base_url'] = base_url("welcome/search_items/");
         $config['per_page'] = 3;
         $config['total_rows'] = $this->school->getSearchRows($id,$name,$category);
         $config['full_tag_open'] = "<ul class='pagination'>";
@@ -522,6 +510,7 @@ class Welcome extends CI_Controller {
         $config['first_link'] = false;
         $config['last_link'] = false; 
         // $config['use_page_numbers'] = TRUE;
+        $config['enable_query_strings'] = TRUE;  
         $config['reuse_query_string']=TRUE;
         $config['last_tag_open'] = "<li>";
         $config['last_tag_close'] = "</li>";
@@ -535,7 +524,7 @@ class Welcome extends CI_Controller {
         $data['search_result'] = $this->school->searchFromCategories($id,$name,$category,$config['per_page'], $this->uri->segment(3));
         $data['category_info'] = $this->school->getAllCategories();
         $data['rows_info'] = $this->school->getSearchRows($id,$name,$category);
-        $this->load->view('search_items',$data);
+        $this->load->view('search_items',$data);   
     }
     public function edit($id)
     {
@@ -644,7 +633,7 @@ class Welcome extends CI_Controller {
     {
             $config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'gif|jpg|png';
-            // $config['max_size']             = 50;
+            // $config['max_size']             = 50M;
             // $config['min_width']            = 960;
             // $config['min_height']            = 240;
             // $config['max_width']            = 1024;
