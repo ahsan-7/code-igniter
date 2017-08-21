@@ -94,10 +94,10 @@ class School extends CI_Model {
         $this->db->where('category',$id);
         return $this->db->get('categories')->result_array();
     }
-    public function insertToRegister($id,$name,$email,$new_name)
+    public function insertToRegister($id,$name,$email,$phone,$new_name)
     {
         $this->db->where('id',$id);
-        $data = ['id'=>$id,'name'=>$name,'email'=>$email];
+        $data = ['id'=>$id,'name'=>$name,'email'=>$email,'phone'=>$phone];
         if($new_name != "")
         {
             $data['image']=$new_name;

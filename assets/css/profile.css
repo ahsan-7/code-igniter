@@ -1,7 +1,7 @@
 .data-alignment{
-	width: 750px;
+	width: 550px;
 	margin: auto;
-	margin-top: 50px;
+	margin-top: 20px;
 }
 .text-font{
 	font-size: 20px;
@@ -14,26 +14,37 @@ hr{
 	border-top: 1px solid #ccc;
 }
 .text-alignment{
-	margin-top: 200px;
+	top: 200;
 }
 .text-alignment>h3>a {
-    margin-right: -20px;
-    font-size: 20px;
-    margin-left: -142px;
-    
+    font-size: 20px;  
+}
+.box-shadow:hover {
+    box-shadow: 4px 0px 11px #ccc;
+    cursor: pointer;
 }
 .bg-img{
 	background-image: url(http://localhost/project/assets/img/dummy_profile.png);
     background-size: 305px;
     background-repeat: no-repeat;
     margin-left: 25px;
+    width: 255px;
+    height: 233px;
 }
-
+.profile-img{
+    margin-left: 25px;
+}
 .navbar-inverse {
     background-color: #289acc;
     border-color: #289acc;
     border-radius: 0px;
     height: 65px;
+}
+.heading-bg{
+    background-color: #248ab7;
+    padding: 12px;
+    text-align: center;
+    color: white;
 }
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
     color: #fff;
@@ -110,5 +121,29 @@ hr{
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.white-box
+{
+    background-color: white;
+    padding: 20px;
+}
+.container{
+    width: 600px;
+}
+.input-field {
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.btn-size{
+    padding: 8px;
+    font-size: 20px;
+}
+.img-design{
+    margin-left: 33px;
+}
+
+
+
 
 

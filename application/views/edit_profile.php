@@ -8,7 +8,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/profile.css"); ?>">
 </head>
-	<body>
+	<body style="background-color: #edf1f5;">
         <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
@@ -68,29 +68,34 @@
 			<b>Success</b><?php echo $this->session->flashdata('pass_change'); ?>
 		</div>
 		<?php endif; ?>      
-		<div class="container-fluid">
+		<div class="container">
 		<input type="hidden" name="id" value="<?php echo $id = $this->session->userdata('id'); ?>">
 			<form action="<?php echo base_url("welcome/do_upload_profile/$id"); ?>" method="post" enctype="multipart/form-data">   
-	      		<div class="panel panel-primary">
-	        		<div class="panel-heading">
+	      		<div class="heading-bg">
 	          			<h4>Edit Profile</h4>
-	        		</div>
-	        		<div class="panel-body">
+	        	</div>
+	      		<div class="white-box box-shadow">
+	        		<div class="">
+	        			<div class="row">
+	        				<div class="col-lg-offset-2 col-lg-8">
+	        					<img src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-design img-responsive img-circle">
+								<input class="input-field" type="file" name="userfile" value="">
+	        				</div>	
+	        		    </div>
 	        		    <input type="hidden" name="id" value="<?php $id = $this->session->userdata('id'); ?>">
 	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('name'); ?>">
-                         
 	           			<br>
-	            		<b>Email:</b> <input type="text" name="email" class="form-control" value="<?php echo $this->session->userdata('email'); ?>">
-                             
+	            		<b>Email:</b> <input type="text" name="email" class="form-control" value="<?php echo $this->session->userdata('email'); ?>">    
+	            		<br>
+	            		<b>Phone:</b> <input type="text" name="phone" class="form-control" value="<?php echo $this->session->userdata('phone'); ?>">    
 	            		<br>
 	            		<a href="<?php echo base_url("welcome/change_password/$id"); ?>"><b>Change Password:</b></a>
-	            		<br>
-	            		<br>
-	            		<img src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-responsive">
-						<b>Upload Img:</b><input type="file" name="userfile" value="">
 	        		</div>
-	        		<div class="panel-footer">
-	          			<input type="submit" name="submit" class="btn btn-info" value="Submit">
+	        		<br>
+	        		<div class="row">
+	        			<div class="col-lg-12">
+	          			    <input type="submit" name="submit" class="btn-size btn btn-info btn-block" value="Submit">
+	        		    </div>
 	        		</div>
 	      		</div>	
 			</form>  	

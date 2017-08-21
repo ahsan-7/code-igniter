@@ -428,8 +428,10 @@ class Welcome extends CI_Controller {
                         $data = array('upload_data' => $this->upload->data());
                         $name = $this->input->post('name');
                         $email = $this->input->post('email');
-                        $info = $this->school->insertToregister($id,$name,$email,$new_name);
+                        $phone = $this->input->post('phone');
+                        $info = $this->school->insertToregister($id,$name,$email,$phone,$new_name);
                         $this->session->set_userdata($info);
+                        print_r($info);
                         // $this->session->sess_destroy();
                         redirect("welcome/profile_manager");
                 }
@@ -439,8 +441,10 @@ class Welcome extends CI_Controller {
                     $data = array('upload_data' => $this->upload->data());
                     $name = $this->input->post('name');
                     $email = $this->input->post('email');
-                    $info = $this->school->insertToregister($id,$name,$email,$new_name);
+                    $phone = $this->input->post('phone');
+                    $info = $this->school->insertToregister($id,$name,$email,$phone,$new_name);
                     $this->session->set_userdata($info);
+                    print_r($info);
                     // $this->session->sess_destroy();
                     redirect("welcome/profile_manager");
             }

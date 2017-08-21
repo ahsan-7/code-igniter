@@ -8,9 +8,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/profile.css"); ?>">
 </head>
-	<body>
-        
-            <nav class="navbar navbar-inverse">
+	<body style="background-color: #edf1f5;">
+        <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
@@ -34,37 +33,34 @@
 			        </li>
 		    	</ul>
 		    	<ul class="nav navbar-nav navbar-right">			      
-		      		<li><a href="#"></a>
-
-		      		</li>
 		      		<li class="dropdown">
 				        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 				        <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
 				        <b><?php echo $this->session->userdata('name'); ?></b>
 				        <span class="caret"></span></a>
 				        <ul class="dropdown-menu dropdown-menu-user">
-				          <li><a>
-				          <div class="row">
-				          <div class="col-lg-4">
-				          	<img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
-				          </div>
-				          <div class="col-lg-8">
-				          	<small><?php echo $this->session->userdata('id'); ?></small><br>
-				          	<small><?php echo $this->session->userdata('name'); ?></small><br>
-				        	<small><?php echo $this->session->userdata('email'); ?></small>
-				          </div>
-				          </div>
-				        </a></li>
-				        <li class="divider"></li>
-				          <li><a href="<?php echo base_url("welcome/profile_manager"); ?>"><span style="padding-right: 5px;" class="glyphicon glyphicon-cog"></span>Account Setting</a></li>
-				          <li class="divider"></li>
-				          <li><a href="<?php echo base_url("welcome/logout"); ?>"><span style="padding-right: 5px;" class="glyphicon glyphicon-off"></span>Logout</a></li>
+				          	<li><a>
+					          	<div class="row">
+						            <div class="col-lg-4">
+						          		<img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+						            </div>
+					                <div class="col-lg-8">
+					          			<small><?php echo $this->session->userdata('id'); ?></small><br>
+					          			<small><?php echo $this->session->userdata('name'); ?></small><br>
+					        			<small><?php echo $this->session->userdata('email'); ?></small>
+					          		</div>
+					          	</div>
+				        	</a></li>
+				        	<li class="divider"></li>
+				          	<li><a href="<?php echo base_url("welcome/profile_manager"); ?>"><span style="padding-right: 5px;" class="glyphicon glyphicon-cog"></span>Account Setting</a></li>
+				          	<li class="divider"></li>
+				          	<li><a href="<?php echo base_url("welcome/logout"); ?>"><span style="padding-right: 5px;" class="glyphicon glyphicon-off"></span>Logout</a></li>
 				        </ul>
 			        </li>
 		    	</ul>
 		  	</div>
 		</nav>
-			<div class="container">
+		<div class="container white-box box-shadow">
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
 				<b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
@@ -76,30 +72,28 @@
 			</div>
 		    <?php endif; ?>
 	        <div class="row">
-	            <div class="col-lg-offset-4 col-lg-6">
+	            <div class="col-lg-offset-2 col-lg-10">
 	         	    <div class="profile-img">
- 	         	   		<img class="bg-img img-rounded" style="width: 305px;height: 245px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-responsive">
-	                    
+ 	         	   		<img class="bg-img img-circle" style="" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-responsive"> 
 	                </div>         	
 	         	</div>
-	         	<div class="col-lg-2">
+	        </div>
+	        <div class="row">
+	        	<div class="col-lg-offset-9 col-lg-3">
 	         		<div class="text-alignment">
 	         		    <h3><a href="<?php echo base_url("welcome/edit_profile"); ?>">Edit Profile</a></h3>
 	         	    </div>
 	         	</div>
 	        </div>
-	        
 	        <div class="data-alignment">
 	        <hr>
 	        <form>
 	        	<div class="row">
-
 	        		<div class="col-lg-12">
 	        			<div class="text-font">
 	        				<strong>Name:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('name'); ?>" readonly>
 	        		    </div>
-	        		</div>
-	        		
+	        		</div>        		
 	        	</div>
 	        	<hr>
 	        	<div class="row">
@@ -107,11 +101,18 @@
 	        			<div class="text-font">
 	        				<strong>Username:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('email'); ?>" readonly>
 	        		    </div>
-	        		</div>
-	        		
+	        		</div>	
 	        	</div>
 	        	<hr>
-	        	</form>
+	        	<div class="row">
+	        		<div class="col-lg-12">
+	        			<div class="text-font">
+	        				<strong>Phone:</strong><input class="form-control" type="text" name="phone" value="<?php echo $this->session->userdata('phone'); ?>" readonly>
+	        		    </div>
+	        		</div>	
+	        	</div>
+	        	<hr>
+	        </form>
 	        </div>	
         </div>
 	</body>

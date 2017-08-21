@@ -8,7 +8,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/profile.css"); ?>">
 </head>
-	<body>
+	<body style="background-color: #edf1f5;">
         <nav class="navbar navbar-inverse">
 		  	<div class="container-fluid">
 	    		<ul class="nav navbar-nav">
@@ -63,14 +63,14 @@
 		    	</ul>
 		  	</div>
 		</nav>
-		<div class="container-fluid">
+		<div class="container">
 		    <input type="hidden" name="id" value="<?php $id = $this->session->userdata('id'); ?>">
 			<form action="<?php echo base_url("welcome/update_password/$id"); ?>" method="post">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
+				<div class="heading-bg">
 						<h4>Change Password</h4>
-					</div>
-					<div class="panel-body">
+				</div>
+				<div class="white-box box-shadow">
+					<div class="">
 						<b>Previous Password:</b><input class="form-control" type="password" name="prev_password" value="<?php echo set_value('prev_password'); ?>">
 						<?php if($this->session->flashdata('pass_change')): ?>
 						<div class="text-danger">
@@ -85,10 +85,12 @@
 						<b>Confirm New Password:</b><input class="form-control" type="password" name="c_new_password" value="<?php echo set_value('c_new_password'); ?>">
 						
 						<?php echo form_error('c_new_password'); ?>
-						<br>
 					</div>
-					<div class="panel-footer">
-						<button class="btn btn-info">Submit</button>
+					<br>
+					<div class="row">
+						<div class="col-lg-12">
+							<button class="btn-size btn btn-info btn-block">Submit</button>
+						</div>
 					</div>					
 				</div>
 			</form>
