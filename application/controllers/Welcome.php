@@ -64,9 +64,7 @@ class Welcome extends CI_Controller {
 		
             if ( $this->session->userdata('login')==1) 
             {
-                
                 $data['category_info'] = $this->school->getAllCategories();
-                
                 $this->load->view('dashboard',$data);   
             }       
             else
@@ -94,26 +92,23 @@ class Welcome extends CI_Controller {
                 $this->load->view('loginform');
                 
         }
-        else{
-        $email = $this->input->post('email');
-		$password = $this->input->post('password');
-		
-		if($info = $this->school->validate($email,$password))
+        else
         {
-		   
-		   $info['login'] = 1;
-		   $this->session->set_userdata($info);
-
-		   //$this->session->set_userdata(['login'=>1]);
-
-
-		   redirect("welcome/dashboard");
-		}
-		else{
-           $this->session->set_flashdata('msg','Email or Password is Incorrect.');
-           redirect("welcome/loginform");
-		}
-	 }
+            $email = $this->input->post('email');
+	        $password = $this->input->post('password');
+		
+		    if($info = $this->school->validate($email,$password))
+            {
+		        $info['login'] = 1;
+		        $this->session->set_userdata($info);
+		        redirect("welcome/dashboard");
+		    }
+		    else
+            {
+                $this->session->set_flashdata('msg','Email or Password is Incorrect.');
+                redirect("welcome/loginform");
+		    }
+	    }
 	}
 	public function name_check($str)
         {if($str=='')
@@ -784,10 +779,6 @@ class Welcome extends CI_Controller {
         echo "test";
         print_r($this->email->send());
         print_r($this->email->print_debugger());
-    }
-    public function pagination()
-    {
-        
     }
 }
 

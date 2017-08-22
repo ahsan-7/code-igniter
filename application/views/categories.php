@@ -98,7 +98,7 @@
 	    		<?php endforeach; ?>
 	    	</div>
 		</div>
-		<div style="bottom: 0; background-color: white; height: 50px;">
+		<div class="footer">
 			
 		</div>
 	</body>

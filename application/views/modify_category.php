@@ -9,8 +9,7 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
 </head>
 	<body style="background-color: #edf1f5;">
-		
-		    <nav class="navbar navbar-inverse">
+		<nav class="navbar navbar-inverse">
 		  	<div class="contain">
 	    		<ul class="nav navbar-nav">
 	    		    <li class="active"><a href="<?php echo base_url("welcome/dashboard"); ?>">DashBoard</a></li>
@@ -93,8 +92,9 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
+		    <?php if($category_info): ?>
 			<form style="text-align: center; width: 1303px;" action="" method="">
-				<table>
+				<table style="width: 1303px;">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
 			     		<th style="padding: 10px;">Name:</th>
@@ -118,10 +118,11 @@
 			        </tr>
 			    </table>
 			</form>
+			<?php endif; ?>
 			<div class="page">
 				<?php echo $this->pagination->create_links(); ?>
 			</div>
 		</div>
-		<div style="background-color: white; height: 50px;"></div>
+		<div class="footer"></div>
 	</body>
 </html>

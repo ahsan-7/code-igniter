@@ -9,7 +9,6 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
 </head>
 	<body style="background-color: #edf1f5;">
-		
 		<nav class="navbar navbar-inverse">
 		  	<div class="contain">
 	    		<ul class="nav navbar-nav">
@@ -86,7 +85,7 @@
 			<?php endforeach; ?>	
 			</div>
 		</div>
-	  	<div style="background-color: white; height: 50px; margin-top: 20px;"></div>
+	  	<div class="footer"></div>
 	</body>
 </html>
 	

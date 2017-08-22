@@ -74,7 +74,9 @@
 	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo set_value('name'); ?>">
                           
 	           			<br>
-	            		<b>Category:</b> <select class="form-control" name="category">
+	            		<b>Category:</b> 
+	            		<select class="form-control" name="category">
+	            		<option value="">Category</option>
 	            			<?php foreach($category_info as $c): ?>
 	            			<option value="<?php echo $c['id']; ?>"><?php echo $c['name']; ?></option>
 	            			<?php endforeach; ?>

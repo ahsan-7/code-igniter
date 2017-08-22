@@ -63,7 +63,7 @@ class School extends CI_Model {
     }
     public function insertToCategory($name,$category,$description,$new_name)
     {
-        $data = ['name'=>$name,'category'=>$category,'description'=>$description,'image'=>$new_name];
+        $data = ['name'=>$name,'category'=>$category,'description'=>$description,'image'=>$new_name,'uploader_email'=>$this->session->userdata('email')];
         if($this->db->insert('categories',$data))
         {
             return $data;
@@ -71,25 +71,52 @@ class School extends CI_Model {
     }
     public function insertToCategory2($name,$description,$new_name)
     {
-        $data = ['name'=>$name,'description'=>$description,'image'=>$new_name];
+        $data = ['name'=>$name,'description'=>$description,'image'=>$new_name,'uploader_email'=>$this->session->userdata('email')];
         $this->db->insert('category',$data);
     }
     public function getAllCategories()
     {
-        $this->db->order_by("name", "asc");
-        return $this->db->get('category')->result_array();
+        if($this->session->userdata('email') != $this->session->userdata('admin_email'))
+        {
+            $this->db->where('uploader_email',$this->session->userdata('email'));
+            $this->db->order_by("name", "asc");
+            return $this->db->get('category')->result_array();
+        }
+        else
+        {
+            $this->db->order_by("name", "asc");
+            return $this->db->get('category')->result_array();
+        }
     }
     public function getAllCategorie($limit,$offset)
     {
-        $this->db->order_by("name", "asc");
-        $this->db->limit($limit,$offset);
-        return $this->db->get('category')->result_array();
+        if($this->session->userdata('email') != $this->session->userdata('admin_email'))
+        {
+            $this->db->where('uploader_email',$this->session->userdata('email'));
+            $this->db->order_by("name", "asc");
+            $this->db->limit($limit,$offset);
+            return $this->db->get('category')->result_array();
+        }
+        else
+        {
+            $this->db->order_by("name", "asc");
+            $this->db->limit($limit,$offset);
+            return $this->db->get('category')->result_array();
+        }  
     }
     public function getRows_category()
     {
-        $query = $this->db->get('category');
-        
-        return $query->num_rows();
+        if($this->session->userdata('email') != $this->session->userdata('admin_email'))
+        {
+            $this->db->where('uploader_email',$this->session->userdata('email'));
+            $query = $this->db->get('category');
+            return $query->num_rows();
+        }
+        else
+        {
+            $query = $this->db->get('category');
+            return $query->num_rows();
+        }  
     }
     public function getCategory($id)
     {
@@ -98,8 +125,17 @@ class School extends CI_Model {
     }
     public function getCategories($id)
     {
-        $this->db->where('category',$id);
-        return $this->db->get('categories')->result_array();
+        if($this->session->userdata('email') != $this->session->userdata('admin_email'))
+        {
+            $this->db->where('uploader_email',$this->session->userdata('email'));
+            $this->db->where('category',$id);
+            return $this->db->get('categories')->result_array();
+        }
+        else
+        {
+            $this->db->where('category',$id);
+            return $this->db->get('categories')->result_array();  
+        }   
     }
     public function insertToRegister($id,$name,$email,$phone,$new_name)
     {
@@ -112,26 +148,76 @@ class School extends CI_Model {
         $this->db->update('register',$data);
         return $data; 
     }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function getFromCategories($limit,$offset)
     {
-        $this->db->order_by("name", "asc");
-        $this->db->limit($limit,$offset);
-        $query = $this->db->get('categories');
-        
-        return $query->result_array();
+        if($this->session->userdata('email') != $this->session->userdata('admin_email'))
+        {
+            $this->db->where('uploader_email',$this->session->userdata('email'));
+            $this->db->order_by("name", "asc");
+            $this->db->limit($limit,$offset);
+            $query = $this->db->get('categories');
+            return $query->result_array();
+        }
+        else
+        {
+            $this->db->order_by("name", "asc");
+            $this->db->limit($limit,$offset);
+            $query = $this->db->get('categories');
+            return $query->result_array();
+        }  
     }
     public function getFromCategorie()
     {
         $this->db->order_by("name", "asc");
         $query = $this->db->get('categories');
-        
         return $query->result_array();
     }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function getRows()
     {
-        $query = $this->db->get('categories');
+        if($this->session->userdata('email') != $this->session->userdata('admin_email'))
+        {
+            $this->db->where('uploader_email',$this->session->userdata('email'));
+            $query = $this->db->get('categories');
         
-        return $rows = $query->num_rows();
+            return $rows = $query->num_rows();
+        }
+        else
+        {
+            $query = $this->db->get('categories');
+            return $rows = $query->num_rows();
+        }
     }
     /*public function getRow($id,$name,$category)
     {
@@ -199,6 +285,58 @@ class School extends CI_Model {
     }
     public function searchFromCategories($id,$name,$category,$limit,$offset)
     {
+        if(!empty($id))
+        {
+            $this->db->where('id',$id);
+        }
+        if(!empty($name))
+        {
+            $this->db->or_where('name',$name);
+        }
+        if(!empty($category))
+        {
+            $this->db->or_where('category',$category);
+        }
+        if(!empty($id) || !empty($name) || !empty($category))
+        {
+            if($this->session->userdata('email') != $this->session->userdata('admin_email'))
+            {
+                $this->db->where('uploader_email',$this->session->userdata('email'));
+                $this->db->limit($limit,$offset);
+                $query = $this->db->get('categories');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->result_array();     
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                $this->db->limit($limit,$offset);
+                $query = $this->db->get('categories');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->result_array();     
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+
+   
+    }
+    public function getSearchRows($id,$name,$category)
+    {
         
         if(!empty($id))
         {
@@ -214,49 +352,30 @@ class School extends CI_Model {
         }
         if(!empty($id) || !empty($name) || !empty($category))
         {
-            $this->db->limit($limit,$offset);
-            $query = $this->db->get('categories');
-            if ($query->num_rows()>=1) 
+            if($this->session->userdata('email') != $this->session->userdata('admin_email'))
             {
-                return $query->result_array();     
+                $this->db->where('uploader_email',$this->session->userdata('email'));
+                $query = $this->db->get('categories');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->num_rows();     
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
-
-
-   
-    }
-    public function getSearchRows($id,$name,$category)
-    {
-        if(!empty($id))
-        {
-            $this->db->where('id',$id);
-        }
-        if(!empty($name))
-        {
-            $this->db->or_where('name',$name);
-        }
-        if(!empty($category))
-        {
-            $this->db->or_where('category',$category);
-        }
-        if(!empty($id) || !empty($name) || !empty($category))
-        {
-            $query = $this->db->get('categories');
-            if ($query->num_rows()>=1) 
-            {
-                return $query->num_rows();     
-            }
-            else
-            {
-                return false;
+                $query = $this->db->get('categories');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->num_rows();     
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         else{
@@ -275,14 +394,30 @@ class School extends CI_Model {
         }
         if(!empty($id) || !empty($name))
         {
-            $query = $this->db->get('category');
-            if ($query->num_rows()>=1) 
+            if($this->session->userdata('email') != $this->session->userdata('admin_email'))
             {
-                return $query->result_array();     
+                $this->db->where('uploader_email',$this->session->userdata('email'));
+                $query = $this->db->get('category');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->result_array();     
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                $query = $this->db->get('category');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->result_array();     
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         else
@@ -302,17 +437,34 @@ class School extends CI_Model {
         }
         if(!empty($id) || !empty($name))
         {
-            $query = $this->db->get('category');
-            if ($query->num_rows()>=1) 
+            if($this->session->userdata('email') != $this->session->userdata('admin_email'))
             {
-                return $query->num_rows();     
+                $this->db->where('uploader_email',$this->session->userdata('email'));
+                $query = $this->db->get('category');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->num_rows();     
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
-                return false;
+                $query = $this->db->get('category');
+                if ($query->num_rows()>=1) 
+                {
+                    return $query->num_rows();     
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
-        else{
+        else
+        {
             return false;
         }
     }

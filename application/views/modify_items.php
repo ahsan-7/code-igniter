@@ -102,8 +102,9 @@
 				<?php echo $this->session->flashdata('msg'); ?>
 			</div>
 		    <?php endif; ?>
+		    <?php if($modify_info): ?>
 			<form class="table-responsive" style="text-align: center; width: 1303px;" action="" method="">
-				<table>
+				<table style="width: 1303px;">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
 			     		<th style="padding: 10px;">Name:</th>
@@ -132,11 +133,12 @@
 			        <div class="clearfix"></div>
 			    </table>
 			</form>
+			<?php endif; ?>
 				<div class="page">
 				<?php echo $this->pagination->create_links(); ?>
 				</div>	
 		</div>
-		<div class="white-box2">
+		<div class="footer">
 			
 		</div>
 	</body>
