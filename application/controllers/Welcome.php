@@ -264,10 +264,7 @@ class Welcome extends CI_Controller {
     {
         if ( $this->session->userdata('login')==1) 
         { 
-            $this->load->library('pagination');
-            $config['per_page'] = 5;
-            $this->pagination->initialize($config);
-            $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+            $data['modify_info'] = $this->school->getFromCategorie();
             $data['category_info'] = $this->school->getAllCategories();
             $this->load->view('add_items',$data);   
         }       
@@ -292,11 +289,7 @@ class Welcome extends CI_Controller {
 
         if ( ! $this->upload->do_upload('userfile'))
         {
-            $this->session->set_flashdata('file','Image is required');
-            $this->load->library('pagination');
-            $config['per_page'] = 5;
-            $this->pagination->initialize($config);
-            $data['id_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+            $data['id_info'] = $this->school->getFromCategorie();
             $data['category_info'] = $this->school->getAllCategories();
             $this->load->view('add_items',$data);
         }
@@ -306,10 +299,8 @@ class Welcome extends CI_Controller {
             $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
             if ($this->form_validation->run() == FALSE)
             {
-                $this->load->library('pagination');
-                $config['per_page'] = 5;
-                $this->pagination->initialize($config);
-                $data['id_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+                
+                $data['id_info'] = $this->school->getFromCategorie();
                 $data['category_info'] = $this->school->getAllCategories();
                 $this->load->view('add_items',$data);
                     
@@ -770,7 +761,7 @@ class Welcome extends CI_Controller {
 
 
     public function send($email,$link)
-    {
+    {   
         $this->load->library('email');
         $this->email->from('ahsansaqib808@gmail.com', 'Ahsan Saqib');
         $this->email->to($email);
@@ -780,7 +771,129 @@ class Welcome extends CI_Controller {
         print_r($this->email->send());
         print_r($this->email->print_debugger());
     }
+    public function users()
+    {
+        if($this->session->userdata('login')==1)
+        {    
+            if($this->session->userdata('admin_email')==$this->session->userdata('email'))
+            {    
+                $this->load->library('pagination');
+
+                $config['base_url'] = base_url("welcome/users/");
+                $config['total_rows'] = $this->school->getuser_rows();
+                $config['per_page'] = 7;
+                $config['full_tag_open'] = "<ul class='pagination'>";
+                $config['full_tag_close'] = "</ul>";
+                $config['next_tag_open'] = "<li>";
+                $config['next_tag_close'] = "</li>";
+                $config['first_tag_open'] = "<li>";
+                $config['first_tag_close'] = "</li>";
+                $config['first_link'] = false;
+                $config['last_link'] = false;
+                // $config['use_page_numbers'] = TRUE;
+                $config['last_tag_open'] = "<li>";
+                $config['last_tag_close'] = "</li>";
+                $config['prev_tag_open'] = "<li>";
+                $config['prev_tag_close'] = "</li>";
+                $config['num_tag_open'] = "<li>";
+                $config['num_tag_close'] = "</li>";
+                $config['cur_tag_open'] = "<li class='active'><a>";
+                $config['cur_tag_close'] = "</a></li>";
+                $this->pagination->initialize($config);
+                $data['users_info'] = $this->school->getUsers($config['per_page'], $this->uri->segment(3));
+                $data['users_rows'] = $this->school->getuser_rows();
+                $this->load->view('users',$data);
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Access Denied');
+                redirect ("welcome/dashboard");
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('msg','Please login first');
+            redirect ("welcome/loginform");
+        } 
+    }
+    public function giveAccess($id,$email)
+    {
+        if($this->session->userdata('login')==1)
+        {    
+            if($this->session->userdata('admin_email')==$this->session->userdata('email'))
+            {    
+                $this->school->adminAccess($id,$email);
+                redirect("welcome/users");
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Access Denied');
+                redirect ("welcome/dashboard");
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('msg','Please login first');
+            redirect ("welcome/loginform");
+        }
+    }
+    public function retriveAccess($id)
+    {
+        if($this->session->userdata('login')==1)
+        {    
+            if($this->session->userdata('admin_email')==$this->session->userdata('email'))
+            {    
+                $this->school->retriveAdminAccess($id);
+                redirect("welcome/users");
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Access Denied');
+                redirect ("welcome/dashboard");
+            }
+        }
+        else
+        {
+            $this->session->set_flashdata('msg','Please login first');
+            redirect ("welcome/loginform");
+        }
+    }
+    public function users_search()
+    {
+        $id = $this->input->get('id');
+        $name = $this->input->get('name');
+        $email = $this->input->get('email');
+        $phone = $this->input->get('phone');
+        $this->load->library('pagination');
+        $config['base_url'] = base_url("welcome/users_search/");
+        $config['per_page'] = 2;
+        $config['total_rows'] = $this->school->userSearchRows($id,$name,$email,$phone);
+        $config['full_tag_open'] = "<ul class='pagination'>";
+        $config['full_tag_close'] = "</ul>";
+        $config['next_tag_open'] = "<li>";
+        $config['next_tag_close'] = "</li>";
+        $config['first_tag_open'] = "<li>";
+        $config['first_tag_close'] = "</li>";
+        $config['first_link'] = false;
+        $config['last_link'] = false;
+        // $config['use_page_numbers'] = TRUE;
+        $config['enable_query_strings'] = TRUE;  
+        $config['reuse_query_string']=TRUE;
+        $config['last_tag_open'] = "<li>";
+        $config['last_tag_close'] = "</li>";
+        $config['prev_tag_open'] = "<li>";
+        $config['prev_tag_close'] = "</li>";
+        $config['num_tag_open'] = "<li>";
+        $config['num_tag_close'] = "</li>";
+        $config['cur_tag_open'] = "<li class='active'><a>";
+        $config['cur_tag_close'] = "</a></li>";
+        $this->pagination->initialize($config);
+        $data['users_info'] = $this->school->searchUsers($id,$name,$email,$phone,$config['per_page'], $this->uri->segment(3));
+        $data['userSearchRows'] = $this->school->userSearchRows($id,$name,$email,$phone);
+        $this->load->view('users_search',$data);
+    }
 }
+
 
 
 

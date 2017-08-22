@@ -148,21 +148,6 @@ class School extends CI_Model {
         $this->db->update('register',$data);
         return $data; 
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function getFromCategories($limit,$offset)
     {
         if($this->session->userdata('email') != $this->session->userdata('admin_email'))
@@ -187,23 +172,6 @@ class School extends CI_Model {
         $query = $this->db->get('categories');
         return $query->result_array();
     }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function getRows()
     {
         if($this->session->userdata('email') != $this->session->userdata('admin_email'))
@@ -331,9 +299,6 @@ class School extends CI_Model {
         {
             return false;
         }
-
-
-   
     }
     public function getSearchRows($id,$name,$category)
     {
@@ -462,6 +427,98 @@ class School extends CI_Model {
                     return false;
                 }
             }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public function getUsers($limit,$offset)
+    {
+        $this->db->limit($limit,$offset);
+        return $this->db->get('register')->result_array();
+    }
+    public function adminAccess($id,$email)
+    {
+        $this->db->where('id',$id);
+        $data = ['admin_email'=>$email,'admin'=>1];
+        $this->db->update('register',$data);
+    }
+    public function retriveAdminAccess($id)
+    {
+        $this->db->where('id',$id);
+        $data = ['admin_email'=>"",'admin'=>0];
+        $this->db->update('register',$data);
+    }
+    public function getuser_rows()
+    {
+        return $this->db->get('register')->num_rows();
+    }
+    public function searchUsers($id,$name,$email,$phone,$limit,$offset)
+    {
+        if(!empty($id))
+        {
+            $this->db->where('id',$id);
+        }
+        if(!empty($name))
+        {
+            $this->db->or_where('name',$name);
+        }
+        if(!empty($email))
+        {
+            $this->db->or_where('email',$email);
+        }
+        if(!empty($phone))
+        {
+            $this->db->or_where('phone',$phone);
+        }
+        if(!empty($id) || !empty($name) || !empty($email) || !empty($phone))
+        {
+            $this->db->limit($limit,$offset);
+            $query = $this->db->get('register');
+            if ($query->num_rows()>=1) 
+            {
+                return $query->result_array();     
+            }
+            else
+            {
+                return false;
+            }   
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public function userSearchRows($id,$name,$email,$phone)
+    {
+        if(!empty($id))
+        {
+            $this->db->where('id',$id);
+        }
+        if(!empty($name))
+        {
+            $this->db->or_where('name',$name);
+        }
+        if(!empty($email))
+        {
+            $this->db->or_where('email',$email);
+        }
+        if(!empty($phone))
+        {
+            $this->db->or_where('phone',$phone);
+        }
+        if(!empty($id) || !empty($name) || !empty($email) || !empty($phone))
+        {
+            $query = $this->db->get('register');
+            if ($query->num_rows()>=1) 
+            {
+                return $query->num_rows();     
+            }
+            else
+            {
+                return false;
+            }   
         }
         else
         {
