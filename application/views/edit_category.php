@@ -48,13 +48,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -72,30 +76,34 @@
                 </div>
             </div>
         </nav>
-			<div class="container">
-			<?php if($this->session->flashdata('msg')): ?>
-			<div class="alert alert-danger">
-				<b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
-			</div>
-		    <?php endif; ?>		    
-			<form action="<?php echo base_url("welcome/do_upload_edit_category"); ?>" method="post" enctype="multipart/form-data">
-			    <input type="hidden" name="id" value="<?php echo $id = $prev_info['id']; ?>">
-			    <div class="heading-bg">
-	          		<h4 class="modal-title">Update Category</h4>
-	        	</div>
-			    <div class="white-box box-shadow">	
-	        		<div class="panel-body">
-	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo $prev_info['name']; ?>"><br>
-	            		<b>Description:</b><textarea class="form-control" name="description"><?php echo $prev_info['description']; ?></textarea><br>
-	            		<div style="width: 200px;"><img style="height: 150px;" src="<?php echo base_url().'uploads/'.$prev_info['image']; ?>" class="img-responsive"></div>
-						<b>Upload Img:</b><input type="file" name="userfile" size="20">
-	        		</div>
-	        		<div class="">
-	          			<input type="submit" name="submit" class="btn-size btn btn-block btn-info" value="Submit">
-	        		</div>
-			  	</div>
-			</form>  	
-		</div>
+        <?php if($this->session->flashdata('msg')): ?>
+        <div class="alert alert-danger">
+            <b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
+        </div>
+        <?php endif; ?>
+		<div class="container-fluid">		    
+        	<div class="row">		
+                <div class="col-lg-offset-3 col-lg-6">
+                    <form action="<?php echo base_url("welcome/do_upload_edit_category"); ?>" method="post" enctype="multipart/form-data">
+        			    <input type="hidden" name="id" value="<?php echo $id = $prev_info['id']; ?>">
+        			    <div class="heading-bg">
+        	          		<h4>Update Category</h4>
+        	        	</div>
+        			    <div class="white-box box-shadow">	
+        	        		<div class="panel-body">
+        	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo $prev_info['name']; ?>"><br>
+        	            		<b>Description:</b><textarea class="form-control" name="description"><?php echo $prev_info['description']; ?></textarea><br>
+        	            		<div style="width: 200px;"><img style="height: 150px;" src="<?php echo base_url().'uploads/'.$prev_info['image']; ?>" class="img-responsive"></div>
+        						<b>Upload Img:</b><input type="file" name="userfile" size="20">
+        	        		</div>
+        	        		<div class="">
+        	          			<input type="submit" name="submit" class="btn-size btn btn-block btn-info" value="Submit">
+        	        		</div>
+        			  	</div>
+        			</form>  	
+		        </div>  
+            </div>    
+        </div>
 		<div style="background-color: white; height: 50px;"></div>
 	</body>
 </html>	

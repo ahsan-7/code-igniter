@@ -48,13 +48,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -72,40 +76,42 @@
                 </div>
             </div>
         </nav>
-		<div class="container">    
-			<form action="<?php echo base_url("welcome/do_upload_items"); ?>" method="post" enctype="multipart/form-data">
-	      		<div class="heading-bg">	          			
-	          		<h4>Add Items</h4>
-	        	</div>
-	      		<div class="white-box box-shadow">	      		
-	        		<div class="">
-	           			
-	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo set_value('name'); ?>">
-                          
-	           			<br>
-	            		<b>Category:</b> 
-	            		<select class="form-control" name="category">
-	            		<option value="">Category</option>
-	            			<?php foreach($category_info as $c): ?>
-	            			<option value="<?php echo $c['id']; ?>"><?php echo $c['name']; ?></option>
-	            			<?php endforeach; ?>
-	            		</select><br>
-	            		<b>Description:</b><textarea class="form-control" name="description"><?php echo set_value('description'); ?></textarea>
-                        <?php echo form_error('description'); ?>
-	            		<br>
-						<b>Upload Img:</b><input type="file" name="userfile" size="20">
-						<?php if($this->session->flashdata('file')): ?>
-						<div class="text-danger">
-							<?php echo $this->session->flashdata('file'); ?>
-						</div>
-					    <?php endif; ?>
-	        		</div>
-	        		<br>
-	        		<div class="">
-	          			<button class="btn-size btn btn-info btn-block">Submit</button>
-	        		</div>	        		
-	      		</div>
-	        </form>	  	
+		<div class="container-fluid">    
+    		<div class="row">
+                <div class="col-lg-offset-3 col-lg-6">	
+                    <form action="<?php echo base_url("welcome/do_upload_items"); ?>" method="post" enctype="multipart/form-data">
+        	      		<div class="heading-bg">	          			
+        	          		<h4>Add Items</h4>
+        	        	</div>
+        	      		<div class="white-box box-shadow">	      		
+        	        		<div class="">	
+        	           			<b>Name:</b> <input class="form-control" type="text" name="name" value="<?php echo set_value('name'); ?>"> 
+        	           			<br>
+        	            		<b>Category:</b> 
+        	            		<select class="form-control" name="category">
+        	            		<option value="">Category</option>
+        	            			<?php foreach($category_info as $c): ?>
+        	            			<option value="<?php echo $c['id']; ?>"><?php echo $c['name']; ?></option>
+        	            			<?php endforeach; ?>
+        	            		</select><br>
+        	            		<b>Description:</b><textarea class="form-control" name="description"><?php echo set_value('description'); ?></textarea>
+                                <?php echo form_error('description'); ?>
+        	            		<br>
+        						<b>Upload Img:</b><input type="file" name="userfile" size="20">
+        						<?php if($this->session->flashdata('file')): ?>
+        						<div class="text-danger">
+        							<?php echo $this->session->flashdata('file'); ?>
+        						</div>
+        					    <?php endif; ?>
+        	        		</div>
+        	        		<br>
+        	        		<div class="">
+        	          			<button class="btn-size btn btn-info btn-block">Submit</button>
+        	        		</div>	        		
+        	      		</div>
+        	        </form>
+                </div>
+            </div>    	  	
 		</div>
 		<div style="margin-top: 73px; background-color: white; height: 50px;"></div>
 	</body>

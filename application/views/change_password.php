@@ -48,13 +48,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -72,38 +76,42 @@
                 </div>
             </div>
         </nav>
-		<div class="container">
-		    <input type="hidden" name="id" value="<?php $id = $this->session->userdata('id'); ?>">
-			<form action="<?php echo base_url("welcome/update_password/$id"); ?>" method="post">
-				<div class="heading-bg">
-						<h4>Change Password</h4>
-				</div>
-				<div class="white-box box-shadow">
-					<div class="">
-						<b>Previous Password:</b><input class="form-control" type="password" name="prev_password" value="<?php echo set_value('prev_password'); ?>">
-						<?php if($this->session->flashdata('pass_change')): ?>
-						<div class="text-danger">
-							<?php echo $this->session->flashdata('pass_change'); ?>
-						</div>
-						<?php endif; ?>
-						<br>
-						<b>New Password:</b><input class="form-control" type="password" name="new_password" value="<?php echo set_value('new_password'); ?>">
-						
-						<?php echo form_error('new_password'); ?>
-						<br>
-						<b>Confirm New Password:</b><input class="form-control" type="password" name="c_new_password" value="<?php echo set_value('c_new_password'); ?>">
-						
-						<?php echo form_error('c_new_password'); ?>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col-lg-12">
-							<button class="btn-size btn btn-info btn-block">Submit</button>
-						</div>
-					</div>					
-				</div>
-			</form>
+		<div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-offset-3 col-lg-6">
+        		    <input type="hidden" name="id" value="<?php $id = $this->session->userdata('id'); ?>">
+        			<form action="<?php echo base_url("welcome/update_password/$id"); ?>" method="post">
+        				<div class="heading-bg">
+        						<h4>Change Password</h4>
+        				</div>
+        				<div class="white-box box-shadow">
+        					<div class="">
+        						<b>Previous Password:</b><input class="form-control" type="password" name="prev_password" value="<?php echo set_value('prev_password'); ?>">
+        						<?php if($this->session->flashdata('pass_change')): ?>
+        						<div class="text-danger">
+        							<?php echo $this->session->flashdata('pass_change'); ?>
+        						</div>
+        						<?php endif; ?>
+        						<br>
+        						<b>New Password:</b><input class="form-control" type="password" name="new_password" value="<?php echo set_value('new_password'); ?>">
+        						
+        						<?php echo form_error('new_password'); ?>
+        						<br>
+        						<b>Confirm New Password:</b><input class="form-control" type="password" name="c_new_password" value="<?php echo set_value('c_new_password'); ?>">
+        						
+        						<?php echo form_error('c_new_password'); ?>
+        					</div>
+        					<br>
+        					<div class="row">
+        						<div class="col-lg-12">
+        							<button class="btn-size btn btn-info btn-block">Submit</button>
+        						</div>
+        					</div>					
+        				</div>
+        			</form>
+                </div>
+            </div>
 		</div>
-		<div style="margin-top: 135px; background-color: white; height: 50px;"></div>
+		<div class="footer"></div>
 	</body>
 </html>		

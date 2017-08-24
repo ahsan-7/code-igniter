@@ -48,13 +48,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -77,7 +81,9 @@
 			<b>Success</b><?php echo $this->session->flashdata('pass_change'); ?>
 		</div>
 		<?php endif; ?>      
-		<div class="container">
+		<div class="container-fluid">
+        <div class="row">
+        <div class="col-lg-offset-3 col-lg-6">
 		<input type="hidden" name="id" value="<?php echo $id = $this->session->userdata('id'); ?>">
 			<form action="<?php echo base_url("welcome/do_upload_profile/$id"); ?>" method="post" enctype="multipart/form-data">   
 	      		<div class="heading-bg">
@@ -86,8 +92,8 @@
 	      		<div class="white-box box-shadow">
 	        		<div class="">
 	        			<div class="row">
-	        				<div class="col-lg-offset-2 col-lg-8">
-	        					<img src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-design img-responsive img-circle">
+	        				<div class="col-lg-offset-3 col-lg-8 col-md-offset-4 col-md-7 col-sm-offset-4 col-sm-8 col-xs-offset-2 col-xs-8">
+	        					<img src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-responsive img-circle">
 	        				</div>	
 	        		    </div>
 	        		    <div class="row">
@@ -113,8 +119,10 @@
 	        		    </div>
 	        		</div>
 	      		</div>	
-			</form>  	
+			</form>
+            </div>
+            </div>  	
 		</div>
-		<div style="background-color: white; height: 50px;"></div>
+		<div class="footer"></div>
 	</body>
 </html>		

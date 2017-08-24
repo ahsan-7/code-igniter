@@ -48,13 +48,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -76,26 +80,26 @@
             <form method="get" action="<?php echo base_url("welcome/users_search"); ?>">
                 <div class="search-box">
                     <div class="row">
-                        <div class="col-xs-2">
+                        <div class="col-lg-2">
                             <label>Unique Id</label>
                             <input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php if(isset($_GET['id'])){echo $_GET['id'];} ?>">
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-lg-2">
                             <label>Name</label>
                             <input class="form-control" type="text" name="name" placeholder="Name" value="<?php if(isset($_GET['name'])){echo $_GET['name'];} ?>">
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-lg-2">
                             <label>Email</label>
                             <input type="text" name="email" class="form-control" placeholder="Email" value="<?php if(isset($_GET['email'])){echo $_GET['email'];} ?>">
                         </div>
-                        <div class="col-xs-2">
+                        <div class="col-lg-2">
                             <label>Phone</label>
                             <input type="text" name="phone" class="form-control" placeholder="Phone" value="<?php if(isset($_GET['phone'])){echo $_GET['phone'];} ?>">
                         </div>
-                        <div class="col-xs-2" style="margin-top: 25px; margin-bottom: 15px;"> 
+                        <div class="col-lg-2" style="margin-top: 25px; margin-bottom: 15px;"> 
                             <button class="form-control btn btn-primary btn-block" type="submit">Search</button>
                         </div>
-                        <div class="col-xs-2" style="margin-top: 25px; margin-bottom: 15px;"> 
+                        <div class="col-lg-2" style="margin-top: 25px; margin-bottom: 15px;"> 
                             <a href="<?php echo base_url("welcome/users"); ?>" class="btn btn-danger btn-block">Reset</a>
                         </div>
                     </div>
@@ -110,37 +114,55 @@
                 </div>
                 <?php endif; ?>
                 <?php if($users_info): ?>
-                <form class="table-responsive" style="text-align: center; width: 1303px;" action="" method="">
-                    <table style="width: 1303px;">
+                <div class="table-responsive">
+                    <table class="table" style="">
                         <tr style="background-color: #2cabe3;">
                             <th style="padding: 10px;">Id:</th>
-                            <th style="padding: 10px;">Name:</th>
+                            <th class="hidden-xs" style="padding: 10px;">Name:</th>
                             <th style="padding: 10px;">Email:</th>
                             <th style="padding: 10px;">Image:</th>
-                            <th style="padding: 10px;">Phone:</th>
+                            <th class="hidden-xs" style="padding: 10px;">Phone:</th>
+                            <th class="hidden-xs" style="padding: 10px;">Verified:</th>
                             <th style="padding: 10px;">Admin:</th>
                             <th style="padding: 10px;">Admin Access:</th>
+                            <th style="padding: 10px;">Status:</th>
+                            <th style="padding: 10px;">User Status:</th>
                         </tr>
                         <?php foreach($users_info as $u): ?>
                         <tr class="box-shadow" style="text-align: justify;">
                             <td style="padding: 10px;"><?php echo $id = $u['id']; ?></td>
-                            <td style="padding: 10px;"><?php echo $u['name']; ?></td>
+                            <td class="hidden-xs" style="padding: 10px;"><?php echo $u['name']; ?></td>
                             
                             <td style="padding: 10px;"><?php echo $email = $u['email']; ?></td>
                             
                             <td style="padding: 10px;"><img style="height: 60px; width: 80px;" src="<?php echo base_url().'uploads/'.$u['image']; ?>"></td>
-                            <td style="padding: 10px;"><?php echo $u['phone']; ?></td>
-                            <?php if($u['admin']==1): ?>
-                            <td style="padding: 10px;"><p class="access btn btn-success">Active</p></td>
+                            <td class="hidden-xs" style="padding: 10px;"><?php echo $u['phone']; ?></td>
+                            <?php if($u['active']==1): ?>
+                            <td class="hidden-xs" style="padding: 10px;"><p class="access btn btn-success">Verified</p></td>
                             <?php else: ?>
-                                <td style="padding: 10px;"><p class="access btn btn-danger">Inactive</p></td>
+                            <td class="hidden-xs" style="padding: 10px;"><p class="access btn btn-danger">Not Verified</p></td>  
+                            <?php endif; ?>
+                            <?php if($u['admin']==1): ?>
+                            <td style="padding: 10px;"><p class="access btn btn-success">Admin</p></td>
+                            <?php else: ?>
+                                <td style="padding: 10px;"><p class="access btn btn-primary">User</p></td>
                             <?php endif; ?>
                             <td style="padding: 10px;">
                             <?php if($u['admin']!=1): ?>
                             <a href="<?php echo base_url("welcome/giveAccess/$id/$email"); ?>" class="access btn btn-info" id="id1">Give Access</a>    
                             <?php endif; ?>
                             <?php if($u['admin']==1): ?>
-                            <a href="<?php echo base_url("welcome/retriveAccess/$id"); ?>" class="access btn btn-info">Retrieve Access</a></td>          
+                            <a href="<?php echo base_url("welcome/retriveAccess/$id"); ?>" class="access btn btn-danger">Retrieve Access</a></td>          
+                            <?php endif; ?>
+                            <?php if($u['online']==1): ?>
+                            <td style="padding: 10px;"><a class="access btn btn-success">Online</a></td>
+                            <?php else: ?>
+                                <td style="padding: 10px;"><a class="access btn btn-danger">Offline</a></td>
+                            <?php endif; ?>
+                            <?php if($u['status']==1): ?>
+                            <td style="padding: 10px;"><a href="<?php echo base_url("welcome/block/$id"); ?>" class="access btn btn-danger">Block User</a></td>
+                            <?php else: ?>
+                            <td style="padding: 10px;"><a href="<?php echo base_url("welcome/unblock/$id"); ?>" class="access btn btn-success">Unblock User</a></td>
                             <?php endif; ?>
                         </tr>   
                         <?php endforeach; ?>
@@ -149,7 +171,7 @@
                         </tr>
                         <div class="clearfix"></div>
                     </table>
-                </form>
+                </div>
                 <?php endif; ?>
                 <div class="page">
                     <?php echo $this->pagination->create_links(); ?>

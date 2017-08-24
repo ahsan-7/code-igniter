@@ -48,13 +48,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -72,7 +76,7 @@
                 </div>
             </div>
         </nav>
-		<div style="margin-top: -20px; background-color: white; height: 40px;"></div>
+		<div class="navbar-white"></div>
 			<div class="container-fluid">
 			<?php if($this->session->flashdata('msg')): ?>
 			<div class="alert alert-danger">
@@ -82,11 +86,15 @@
 			<!--  -->
 			<div class="row">
 			    <?php foreach($category_info as $c): ?>
-			    	<input type="hidden" name="id" value="<?php echo $id = $c['id']; ?>">
-			    	
-				<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-					<div class="categories box-shadow">
+			    	<input type="hidden" name="id" value="<?php echo $id = $c['id']; ?>">	
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+					<div class="hidden-xs">
 						<a href="<?php echo base_url("welcome/categories/$id"); ?>"><img style="height: 245px;width: 305px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
+                    </div>
+                    <div class="hidden-lg hidden-md hidden-sm">
+                        <a href="<?php echo base_url("welcome/categories/$id"); ?>"><img class="img-responsive" style="height: 300px;width: 763px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
+                    </div>    
+                    <div class="categories box-shadow">    
 						<h1 style="text-align: center;"><a href="<?php echo base_url("welcome/categories/$id"); ?>"><?php echo $c['name'] ?></a></h1>
 					</div>
 				</div>

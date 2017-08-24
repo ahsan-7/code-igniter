@@ -48,13 +48,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -72,61 +76,69 @@
                 </div>
             </div>
         </nav>
-		<div class="container white-box box-shadow">
-			<?php if($this->session->flashdata('msg')): ?>
-			<div class="alert alert-danger">
-				<b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
-			</div>
-		    <?php endif; ?>
-		    <?php if($this->session->flashdata('cmsg')): ?>
-			<div class="alert alert-success">
-				<b>Success: </b><?php echo $this->session->flashdata('cmsg'); ?>
-			</div>
-		    <?php endif; ?>
-	        <div class="row">
-	            <div class="col-lg-offset-2 col-lg-10">
-	         	    <div class="profile-img">
- 	         	   		<img class="bg-img img-circle" style="" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>" class="img-responsive"> 
-	                </div>         	
-	         	</div>
-	        </div>
-	        <div class="row">
-	        	<div class="col-lg-offset-9 col-lg-3">
-	         		<div class="text-alignment">
-	         		    <h3><a href="<?php echo base_url("welcome/edit_profile"); ?>">Edit Profile</a></h3>
-	         	    </div>
-	         	</div>
-	        </div>
-	        <div class="data-alignment">
-	        <hr>
-	        <form>
-	        	<div class="row">
-	        		<div class="col-lg-12">
-	        			<div class="text-font">
-	        				<strong>Name:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('name'); ?>" readonly>
-	        		    </div>
-	        		</div>        		
-	        	</div>
-	        	<hr>
-	        	<div class="row">
-	        		<div class="col-lg-12">
-	        			<div class="text-font">
-	        				<strong>Username:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('email'); ?>" readonly>
-	        		    </div>
-	        		</div>	
-	        	</div>
-	        	<hr>
-	        	<div class="row">
-	        		<div class="col-lg-12">
-	        			<div class="text-font">
-	        				<strong>Phone:</strong><input class="form-control" type="text" name="phone" value="<?php echo $this->session->userdata('phone'); ?>" readonly>
-	        		    </div>
-	        		</div>	
-	        	</div>
-	        	<hr>
-	        </form>
-	        </div>	
+        <?php if($this->session->flashdata('msg')): ?>
+        <div class="alert alert-danger">
+            <b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
         </div>
-        <div style="background-color: white; height: 50px;"></div>
+        <?php endif; ?>
+        <?php if($this->session->flashdata('cmsg')): ?>
+        <div class="alert alert-success">
+            <b>Success: </b><?php echo $this->session->flashdata('cmsg'); ?>
+        </div>
+        <?php endif; ?>
+		<div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <div class=" white-box box-shadow">
+                        <div class="container-fluid">
+                	        <div class="row">
+                	            <div class="col-lg-offset-3 col-lg-9 col-md-offset-4 col-md-7 col-sm-offset-4 col-sm-7 col-xs-offset-3 col-xs-7">
+                	         	    <div class="">
+                 	         	   		<img class="img-circle img-responsive" style="" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>"> 
+                	                </div>         	
+                	         	</div>
+                	        </div>
+                	        <div class="row">
+                	        	<div class="col-lg-offset-9 col-lg-3">
+                	         		<div class="text-siz">
+                	         		    <h3><a href="<?php echo base_url("welcome/edit_profile"); ?>">Edit Profile</a></h3>
+                	         	    </div>
+                	         	</div>
+                	        </div>
+                	        <div class="">
+                    	        <hr>
+                    	        <form>
+                    	        	<div class="row">
+                    	        		<div class="col-lg-12">
+                    	        			<div class="text-font">
+                    	        				<strong>Name:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('name'); ?>" readonly>
+                    	        		    </div>
+                    	        		</div>        		
+                    	        	</div>
+                    	        	<hr>
+                    	        	<div class="row">
+                    	        		<div class="col-lg-12">
+                    	        			<div class="text-font">
+                    	        				<strong>Username:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('email'); ?>" readonly>
+                    	        		    </div>
+                    	        		</div>	
+                    	        	</div>
+                    	        	<hr>
+                    	        	<div class="row">
+                    	        		<div class="col-lg-12">
+                    	        			<div class="text-font">
+                    	        				<strong>Phone:</strong><input class="form-control" type="text" name="phone" value="<?php echo $this->session->userdata('phone'); ?>" readonly>
+                    	        		    </div>
+                    	        		</div>	
+                    	        	</div>
+                    	        	<hr>
+                    	        </form>
+                	        </div>
+                        </div>    
+                    </div>
+                </div>    
+            </div>    
+        </div>
+        <div class="footer"></div>
 	</body>
 </html>	

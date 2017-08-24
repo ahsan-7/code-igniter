@@ -5,7 +5,7 @@ class School extends CI_Model {
 
     public function insertToDB($name,$email,$password)
     {
-        $data = ['name'=>$name,'email'=>$email,'password'=>md5($password)];
+        $data = ['name'=>$name,'email'=>$email,'password'=>md5($password),'status'=>1];
         if($data1 = $this->db->insert('register',$data))
         {
       
@@ -525,14 +525,33 @@ class School extends CI_Model {
             return false;
         }
     }
+    public function block_user($id)
+    {
+        $this->db->where('id',$id);
+        $data = ['status'=>0];
+        $this->db->update('register',$data);
+    }
+    public function unblock_user($id)
+    {
+        $this->db->where('id',$id);
+        $data = ['status'=>1];
+        $this->db->update('register',$data);
+    }
+    public function updateRegister($email)
+    {
+        $this->db->where('email',$email);
+        if($this->session->userdata('status')==1)
+        {
+           $data = ['online'=>1];
+            return $this->db->update('register',$data); 
+        }
+        
+    }
+    public function update_Register()
+    {
+        $this->db->where('email',$this->session->userdata('email'));
+        $data = ['online'=>0];
+        $this->db->update('register',$data);
+    }
+
 }
-
-
-
-
-
-
-
-
-
-

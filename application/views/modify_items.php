@@ -49,13 +49,17 @@
                             <ul class="dropdown-menu dropdown-menu-user">
                                 <li><a>
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <img class="img-round" style="width: 60px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                        <div class="col-lg-4 col-xs-2">
+                                            <div class="responsive-info">    
+                                                <img class="img-round" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                                            </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <small><?php echo $this->session->userdata('id'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('name'); ?></small><br>
-                                            <small><?php echo $this->session->userdata('email'); ?></small>
+                                        <div class="col-lg-8 col-xs-4">
+                                            <div class="responsive-info">
+                                                <small><?php echo $this->session->userdata('id'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('name'); ?></small><br>
+                                                <small><?php echo $this->session->userdata('email'); ?></small>
+                                            </div>
                                         </div>
                                     </div>
                                 </a></li>
@@ -77,15 +81,15 @@
 		    <form method="get" action="<?php echo base_url("welcome/search_items"); ?>">
 		    	<div class="search-box">
 	            	<div class="row">
-	            		<div class="col-xs-3">
+	            		<div class="col-lg-3">
 	            			<label>Unique Id</label>
 	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php echo set_value('id'); ?>">
 	            		</div>
-	            		<div class="col-xs-3">
+	            		<div class="col-lg-3">
 	            			<label>Name</label>
 	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php echo set_value('name'); ?>">
 	            		</div>
-	            		<div class="col-xs-3">
+	            		<div class="col-lg-3">
 	            			<label>Category</label>
 	            			<select class="form-control" name="category">
 	            				<option value>Category</option>
@@ -94,10 +98,10 @@
 	            			    <?php endforeach; ?>
 	            			</select>
 	            		</div>
-	            		<div class="col-xs-2" style="margin-top: 25px; margin-bottom: 15px;"> 
+	            		<div class="col-lg-2" style="margin-top: 25px; margin-bottom: 15px;"> 
 	            			<button class="form-control btn btn-primary btn-block" type="submit">Search</button>
 	            		</div>
-	            		<div class="col-xs-1" style="margin-top: 25px; margin-bottom: 15px;"> 
+	            		<div class="col-lg-1" style="margin-top: 25px; margin-bottom: 15px;"> 
 	            			<a href="<?php echo base_url("welcome/modify_items"); ?>" class="btn btn-danger btn-block">Reset</a>
 	            		</div>
 	            	</div>
@@ -112,13 +116,13 @@
 			</div>
 		    <?php endif; ?>
 		    <?php if($modify_info): ?>
-			<form class="table-responsive" style="text-align: center; width: 1303px;" action="" method="">
-				<table class="responsive" style="width: 1303px;">
+			<div class="table-responsive">
+				<table class="table">
 			     	<tr style="background-color: #2cabe3;">
 			     		<th style="padding: 10px;">Id:</th>
 			     		<th style="padding: 10px;">Name:</th>
 			     		<th style="padding: 10px;">Category:</th>
-			     		<th style="padding: 10px;">Description:</th>
+			     		<th class="hidden-xs" style="padding: 10px;">Description:</th>
 			     		<th style="padding: 10px;">Image:</th>
 			     		<th style="padding: 10px;">Delete:</th>
 			     		<th style="padding: 10px;">Edit:</th>
@@ -130,7 +134,7 @@
 			            <?php $category = getName($m['category']); foreach($category as $c): ?>
 			            <td style="padding: 10px;"><?php echo $c['name']; ?></td>
 			            <?php endforeach; ?>
-			            <td style="padding: 10px;"><?php echo $m['description']; ?></td>
+			            <td class="hidden-xs" style="padding: 10px;"><?php echo $m['description']; ?></td>
 			     		<td style="padding: 10px;"><img style="height: 120px; width: 140px;" src="<?php echo base_url().'uploads/'.$m['image']; ?>"></td>
 			            <td style="padding: 10px;"><a href="<?php echo base_url("welcome/delete/$id"); ?>">Delete</a></td>
 			            <td style="padding: 10px;"><a href="<?php echo base_url("welcome/edit/$id"); ?>">Edit</a></td>     		
@@ -141,7 +145,7 @@
 			        </tr>
 			        <div class="clearfix"></div>
 			    </table>
-			</form>
+			</div>
 			<?php endif; ?>
 				<div class="page">
 				<?php echo $this->pagination->create_links(); ?>
