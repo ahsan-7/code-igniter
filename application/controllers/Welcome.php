@@ -62,24 +62,30 @@ class Welcome extends CI_Controller {
     }
 	public function dashboard(){
 		
+        if( $this->session->userdata('status')==1)
+        {
             if ( $this->session->userdata('login')==1) 
             {
-                
                 $data['category_info'] = $this->school->getAllCategories();
-                
                 $this->load->view('dashboard',$data);   
             }       
             else
             {
                $this->session->set_flashdata('msg','Please login first.');
                redirect("welcome/loginform");
-            }
-        
+            } 
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        } 
 	}
 	
 	public function logout()
 	{
-		$this->session->sess_destroy();
+		$this->school->update_Register();
+        $this->session->sess_destroy();
 		redirect("welcome/loginform");
 	}
 	public function validate()
@@ -94,27 +100,30 @@ class Welcome extends CI_Controller {
                 $this->load->view('loginform');
                 
         }
-        else{
-        $email = $this->input->post('email');
-		$password = $this->input->post('password');
-		
-		if($info = $this->school->validate($email,$password))
+        else
         {
-		   
-		   $info['login'] = 1;
-		   $this->session->set_userdata($info);
-
-		   //$this->session->set_userdata(['login'=>1]);
-
-
-		   redirect("welcome/dashboard");
-		}
-		else{
-           $this->session->set_flashdata('msg','Email or Password is Incorrect.');
-           redirect("welcome/loginform");
-		}
-	 }
+            $email = $this->input->post('email');
+	        $password = $this->input->post('password');
+		
+		    if($info = $this->school->validate($email,$password))
+            {
+                $info['login'] = 1;
+		        $this->session->set_userdata($info);
+		        redirect("welcome/online/$email");
+		    }
+		    else
+            {
+                $this->session->set_flashdata('msg','Email or Password is Incorrect.');
+                redirect("welcome/loginform");
+		    }
+	    }
 	}
+    public function online($email)
+    {
+        $info = $this->school->updateRegister($email);
+        $this->session->set_userdata($info);
+        redirect("welcome/dashboard");
+    }
 	public function name_check($str)
         {if($str=='')
         	{
@@ -212,11 +221,12 @@ class Welcome extends CI_Controller {
         }
     public function profile_manager()
     {
-        
+        if( $this->session->userdata('status')==1)
+        {
             if ( $this->session->userdata('login')==1) 
             {
                 
-                $data['cp'] = $this->school->getAllCategories();
+                $data['category_info'] = $this->school->getAllCategories();
                 $this->load->view('profile_manager',$data);   
             }       
             else
@@ -224,11 +234,17 @@ class Welcome extends CI_Controller {
                $this->session->set_flashdata('msg','Please login first.');
                redirect("welcome/loginform");
             }
-        
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }    
     }
     public function add_item()
     {
-        
+        if( $this->session->userdata('status')==1)
+        {
             if ( $this->session->userdata('login')==1) 
             {
                 $this->load->view('add_item');    
@@ -238,11 +254,17 @@ class Welcome extends CI_Controller {
                $this->session->set_flashdata('msg','Please login first.');
                redirect("welcome/loginform");
             }
-             
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }           
     }
     public function categories($id)
     {
-            
+        if( $this->session->userdata('status')==1)
+        {
             if ( $this->session->userdata('login')==1) 
             {
                 
@@ -258,6 +280,13 @@ class Welcome extends CI_Controller {
                $this->session->set_flashdata('msg','Please login first.');
                redirect("welcome/loginform");
             }
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }    
+            
            
     }
 
@@ -267,17 +296,26 @@ class Welcome extends CI_Controller {
 
     public function add_items()
     {
-        if ( $this->session->userdata('login')==1) 
-        { 
-            $data['id_info'] = $this->school->getFromCategories();
-            $data['category_info'] = $this->school->getAllCategories();
-            $this->load->view('add_items',$data);   
-        }       
+        if( $this->session->userdata('status')==1)
+        {
+            if ( $this->session->userdata('login')==1) 
+            { 
+                $data['modify_info'] = $this->school->getFromCategorie();
+                $data['category_info'] = $this->school->getAllCategories();
+                $this->load->view('add_items',$data);   
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            }
+        }
         else
         {
-           $this->session->set_flashdata('msg','Please login first.');
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
            redirect("welcome/loginform");
-        }
+        }    
+
     }
     public function do_upload_items()
     {
@@ -294,9 +332,7 @@ class Welcome extends CI_Controller {
 
         if ( ! $this->upload->do_upload('userfile'))
         {
-            $this->session->set_flashdata('file','Image is required');
-            
-            $data['id_info'] = $this->school->getFromCategories();
+            $data['id_info'] = $this->school->getFromCategorie();
             $data['category_info'] = $this->school->getAllCategories();
             $this->load->view('add_items',$data);
         }
@@ -306,7 +342,8 @@ class Welcome extends CI_Controller {
             $this->form_validation->set_error_delimiters('<div class="text-danger">', '</div>');
             if ($this->form_validation->run() == FALSE)
             {
-                $data['id_info'] = $this->school->getFromCategories();
+                
+                $data['id_info'] = $this->school->getFromCategorie();
                 $data['category_info'] = $this->school->getAllCategories();
                 $this->load->view('add_items',$data);
                     
@@ -332,15 +369,24 @@ class Welcome extends CI_Controller {
 
     public function add_category()
     {
-        if ( $this->session->userdata('login')==1) 
-        { 
-            $this->load->view('add_category'); 
-        }       
+        if( $this->session->userdata('status')==1)
+        {
+            if ( $this->session->userdata('login')==1) 
+            { 
+                $this->load->view('add_category'); 
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            } 
+        }
         else
         {
-           $this->session->set_flashdata('msg','Please login first.');
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
            redirect("welcome/loginform");
-        }              
+        } 
+
     }
     public function do_upload_category()
     {
@@ -368,7 +414,7 @@ class Welcome extends CI_Controller {
             if ($this->form_validation->run() == FALSE)
             {
                 
-                $data['category_info'] = $this->school->getAllCategories();
+               $data['category_info'] = $this->school->getAllCategories();
                 $this->load->view('add_category',$data);
                     
             }
@@ -397,7 +443,7 @@ class Welcome extends CI_Controller {
     {
             $config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'gif|jpg|png';
-            // $config['max_size']             = 50;
+            $config['max_size']             = 1000000;
             // $config['min_width']            = 960;
             // $config['min_height']            = 240;
             // $config['max_width']            = 1024;
@@ -420,8 +466,10 @@ class Welcome extends CI_Controller {
                         $data = array('upload_data' => $this->upload->data());
                         $name = $this->input->post('name');
                         $email = $this->input->post('email');
-                        $info = $this->school->insertToregister($id,$name,$email,$new_name);
+                        $phone = $this->input->post('phone');
+                        $info = $this->school->insertToregister($id,$name,$email,$phone,$new_name);
                         $this->session->set_userdata($info);
+                        print_r($info);
                         // $this->session->sess_destroy();
                         redirect("welcome/profile_manager");
                 }
@@ -431,8 +479,10 @@ class Welcome extends CI_Controller {
                     $data = array('upload_data' => $this->upload->data());
                     $name = $this->input->post('name');
                     $email = $this->input->post('email');
-                    $info = $this->school->insertToregister($id,$name,$email,$new_name);
+                    $phone = $this->input->post('phone');
+                    $info = $this->school->insertToregister($id,$name,$email,$phone,$new_name);
                     $this->session->set_userdata($info);
+                    print_r($info);
                     // $this->session->sess_destroy();
                     redirect("welcome/profile_manager");
             }
@@ -440,39 +490,134 @@ class Welcome extends CI_Controller {
     
     public function modify_items()
     {
-        if ( $this->session->userdata('login')==1) 
+        if( $this->session->userdata('status')==1)
         {
-            $data['modify_info'] = $this->school->getFromCategories();
-        
-            $data['category_info'] = $this->school->getAllCategories();
-        
-            $this->load->view('modify_items',$data);
-               
-        }       
+            if ( $this->session->userdata('login')==1) 
+            {
+                $this->load->library('pagination');
+
+                $config['base_url'] = base_url("welcome/modify_items/");
+                $config['total_rows'] = $this->school->getRows();
+                $config['per_page'] = 5;
+                $config['full_tag_open'] = "<ul class='pagination'>";
+                $config['full_tag_close'] = "</ul>";
+                $config['next_tag_open'] = "<li>";
+                $config['next_tag_close'] = "</li>";
+                $config['first_tag_open'] = "<li>";
+                $config['first_tag_close'] = "</li>";
+                $config['first_link'] = false;
+                $config['last_link'] = false;
+                // $config['use_page_numbers'] = TRUE;
+                $config['enable_query_strings'] = TRUE;  
+                $config['last_tag_open'] = "<li>";
+                $config['last_tag_close'] = "</li>";
+                $config['prev_tag_open'] = "<li>";
+                $config['prev_tag_close'] = "</li>";
+                $config['num_tag_open'] = "<li>";
+                $config['num_tag_close'] = "</li>";
+                $config['cur_tag_open'] = "<li class='active'><a>";
+                $config['cur_tag_close'] = "</a></li>";
+                $this->pagination->initialize($config);
+                $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+                $data['rows_info'] = $this->school->getRows();
+                $data['category_info'] = $this->school->getAllCategories();
+                
+                $this->load->view('modify_items',$data);
+                   
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            } 
+        }
         else
         {
-           $this->session->set_flashdata('msg','Please login first.');
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
            redirect("welcome/loginform");
         }
+
         
+    }
+    public function search_items()
+    {
+        if( $this->session->userdata('status')==1)
+        {
+            if ( $this->session->userdata('login')==1) 
+            {
+                $id = $this->input->get('id');
+                $name = $this->input->get('name');
+                $category = $this->input->get('category');
+                $this->load->library('pagination');
+                $config['base_url'] = base_url("welcome/search_items/");
+                $config['per_page'] = 3;
+                $config['total_rows'] = $this->school->getSearchRows($id,$name,$category);
+                $config['full_tag_open'] = "<ul class='pagination'>";
+                $config['full_tag_close'] = "</ul>";
+                $config['next_tag_open'] = "<li>";
+                $config['next_tag_close'] = "</li>";
+                $config['first_tag_open'] = "<li>";
+                $config['first_tag_close'] = "</li>";
+                $config['first_link'] = false;
+                $config['last_link'] = false; 
+                // $config['use_page_numbers'] = TRUE;
+                $config['enable_query_strings'] = TRUE;  
+                $config['reuse_query_string']=TRUE;
+                $config['last_tag_open'] = "<li>";
+                $config['last_tag_close'] = "</li>";
+                $config['prev_tag_open'] = "<li>";
+                $config['prev_tag_close'] = "</li>";
+                $config['num_tag_open'] = "<li>";
+                $config['num_tag_close'] = "</li>";
+                $config['cur_tag_open'] = "<li class='active'><a>";
+                $config['cur_tag_close'] = "</a></li>";
+                $this->pagination->initialize($config);
+                $data['search_result'] = $this->school->searchFromCategories($id,$name,$category,$config['per_page'], $this->uri->segment(3));
+                $data['category_info'] = $this->school->getAllCategories();
+                $data['rows_info'] = $this->school->getSearchRows($id,$name,$category);
+                $this->load->view('search_items',$data);      
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            } 
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }
+         
+
     }
     public function edit($id)
     {
-        if ( $this->session->userdata('login')==1) 
+        if( $this->session->userdata('status')==1)
         {
-            
-            $data['modify_info'] = $this->school->getFromCategories();
-        
-            $data['category_info'] = $this->school->getAllCategories();
-            $data['prev_info'] = $this->school->getCategories_edit($id);
-       
-            $this->load->view('edit',$data);  
-        }       
+            if ( $this->session->userdata('login')==1) 
+            {
+                $this->load->library('pagination');
+                $config['per_page'] = 5;
+                $this->pagination->initialize($config);
+                $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
+                $data['category_info'] = $this->school->getAllCategories();
+                $data['prev_info'] = $this->school->getCategories_edit($id);
+           
+                $this->load->view('edit',$data);  
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            }
+        }
         else
         {
-           $this->session->set_flashdata('msg','Please login first.');
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
            redirect("welcome/loginform");
         }
+
         
     }    
     public function delete($id)
@@ -483,19 +628,75 @@ class Welcome extends CI_Controller {
     }    
     public function modify_category()
     {
-        if ( $this->session->userdata('login')==1) 
+        if( $this->session->userdata('status')==1)
         {
-            $data['category_info'] = $this->school->getAllCategories();
-        
-            $this->load->view('modify_category',$data);
-               
-        }       
+            if ( $this->session->userdata('login')==1) 
+            {
+                $this->load->library('pagination');
+
+                $config['base_url'] = base_url("welcome/modify_category/");
+                $config['total_rows'] = $this->school->getRows_category();
+                $config['per_page'] = 5;
+                $config['full_tag_open'] = "<ul class='pagination'>";
+                $config['full_tag_close'] = "</ul>";
+                $config['next_tag_open'] = "<li>";
+                $config['next_tag_close'] = "</li>";
+                $config['first_tag_open'] = "<li>";
+                $config['first_tag_close'] = "</li>";
+                $config['first_link'] = false;
+                $config['last_link'] = false;
+                // $config['use_page_numbers'] = TRUE;
+                $config['last_tag_open'] = "<li>";
+                $config['last_tag_close'] = "</li>";
+                $config['prev_tag_open'] = "<li>";
+                $config['prev_tag_close'] = "</li>";
+                $config['num_tag_open'] = "<li>";
+                $config['num_tag_close'] = "</li>";
+                $config['cur_tag_open'] = "<li class='active'><a>";
+                $config['cur_tag_close'] = "</a></li>";
+                $this->pagination->initialize($config);
+                $data['category_info'] = $this->school->getAllCategorie($config['per_page'], $this->uri->segment(3));
+                $data['rows_info'] = $this->school->getRows_category();
+                $this->load->view('modify_category',$data);
+                   
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            }
+        }
         else
         {
-           $this->session->set_flashdata('msg','Please login first.');
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
            redirect("welcome/loginform");
         }
         
+    }
+    public function search_category()
+    {
+        if( $this->session->userdata('status')==1)
+        {
+            if ( $this->session->userdata('login')==1) 
+            {
+                $id = $this->input->post('id');
+                $name = $this->input->post('name');
+                $data['search_info'] = $this->school->searchAllCategories($id,$name);
+                $data['rows_info'] = $this->school->getSearchR($id,$name);
+                $this->load->view('search_category',$data);      
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            }
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }    
+
     }
     public function delete_category($id)
     {
@@ -505,25 +706,34 @@ class Welcome extends CI_Controller {
     }
     public function edit_category($id)
     {
-        if ( $this->session->userdata('login')==1) 
+        if( $this->session->userdata('status')==1)
         {
-            $data['category_info'] = $this->school->getAllCategories();
-            $data['prev_info'] = $this->school->getCategories_edit_category($id);
-            $this->load->view('edit_category',$data);
-               
-        }       
+            if ( $this->session->userdata('login')==1) 
+            {
+                $data['category_info'] = $this->school->getAllCategories();
+                $data['prev_info'] = $this->school->getCategories_edit_category($id);
+                $this->load->view('edit_category',$data);
+                   
+            }       
+            else
+            {
+               $this->session->set_flashdata('msg','Please login first.');
+               redirect("welcome/loginform");
+            }
+        }
         else
         {
-           $this->session->set_flashdata('msg','Please login first.');
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
            redirect("welcome/loginform");
-        }
+        }    
+
         
     }
     public function do_upload_edit_items()
     {
             $config['upload_path']          = './uploads/';
             $config['allowed_types']        = 'gif|jpg|png';
-            // $config['max_size']             = 50;
+            // $config['max_size']             = 50M;
             // $config['min_width']            = 960;
             // $config['min_height']            = 240;
             // $config['max_width']            = 1024;
@@ -540,7 +750,10 @@ class Welcome extends CI_Controller {
                 {
                         $this->session->set_flashdata('msg','File not uploaded,your file should be of size 50.');
                         $id = $this->input->post('id');
-                        $data['modify_info'] = $this->school->getFromCategories();
+                        $this->load->library('pagination');
+                        $config['per_page'] = 5;
+                        $this->pagination->initialize($config);
+                        $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
         
                         $data['category_info'] = $this->school->getAllCategories();
                         $data['prev_info'] = $this->school->getCategories_edit($id);
@@ -589,7 +802,10 @@ class Welcome extends CI_Controller {
                 {
                         $this->session->set_flashdata('msg','File not uploaded,your file should be of size 50.');
                         $id = $this->input->post('id');
-                        $data['modify_info'] = $this->school->getFromCategories();
+                        $this->load->library('pagination');
+                        $config['per_page'] = 5;
+                        $this->pagination->initialize($config);
+                        $data['modify_info'] = $this->school->getFromCategories($config['per_page'], $this->uri->segment(3));
         
                         $data['category_info'] = $this->school->getAllCategories();
                         $data['prev_info'] = $this->school->getCategories_edit($id);
@@ -617,15 +833,24 @@ class Welcome extends CI_Controller {
     }
     public function change_password()
     {
-        if($this->session->userdata('login')==1)
-        {    
-        $this->load->view('change_password');
+        if( $this->session->userdata('status')==1)
+        {
+            if($this->session->userdata('login')==1)
+            {    
+            $this->load->view('change_password');
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Please login first');
+                redirect ("welcome/loginform");
+            }
         }
         else
         {
-            $this->session->set_flashdata('msg','Please login first');
-            redirect ("welcome/loginform");
-        }
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        } 
+
     }
     public function update_password($id)
     {
@@ -659,7 +884,7 @@ class Welcome extends CI_Controller {
 
 
     public function send($email,$link)
-    {
+    {   
         $this->load->library('email');
         $this->email->from('ahsansaqib808@gmail.com', 'Ahsan Saqib');
         $this->email->to($email);
@@ -669,23 +894,185 @@ class Welcome extends CI_Controller {
         print_r($this->email->send());
         print_r($this->email->print_debugger());
     }
+    public function users()
+    {
+        if( $this->session->userdata('status')==1)
+        {
+            if($this->session->userdata('login')==1)
+            {    
+                if($this->session->userdata('admin_email')==$this->session->userdata('email'))
+                {    
+                    $this->load->library('pagination');
+
+                    $config['base_url'] = base_url("welcome/users/");
+                    $config['total_rows'] = $this->school->getuser_rows();
+                    $config['per_page'] = 7;
+                    $config['full_tag_open'] = "<ul class='pagination'>";
+                    $config['full_tag_close'] = "</ul>";
+                    $config['next_tag_open'] = "<li>";
+                    $config['next_tag_close'] = "</li>";
+                    $config['first_tag_open'] = "<li>";
+                    $config['first_tag_close'] = "</li>";
+                    $config['first_link'] = false;
+                    $config['last_link'] = false;
+                    // $config['use_page_numbers'] = TRUE;
+                    $config['last_tag_open'] = "<li>";
+                    $config['last_tag_close'] = "</li>";
+                    $config['prev_tag_open'] = "<li>";
+                    $config['prev_tag_close'] = "</li>";
+                    $config['num_tag_open'] = "<li>";
+                    $config['num_tag_close'] = "</li>";
+                    $config['cur_tag_open'] = "<li class='active'><a>";
+                    $config['cur_tag_close'] = "</a></li>";
+                    $this->pagination->initialize($config);
+                    $data['users_info'] = $this->school->getUsers($config['per_page'], $this->uri->segment(3));
+                    $data['users_rows'] = $this->school->getuser_rows();
+                    $this->load->view('users',$data);
+                }
+                else
+                {
+                    $this->session->set_flashdata('msg','Access Denied');
+                    redirect ("welcome/dashboard");
+                }
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Please login first');
+                redirect ("welcome/loginform");
+            }
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }    
+
+    }
+    public function giveAccess($id,$email)
+    {
+        if( $this->session->userdata('status')==1)
+        {
+            if($this->session->userdata('login')==1)
+            {    
+                if($this->session->userdata('admin_email')==$this->session->userdata('email'))
+                {    
+                    $this->school->adminAccess($id,$email);
+                    redirect("welcome/users");
+                }
+                else
+                {
+                    $this->session->set_flashdata('msg','Access Denied');
+                    redirect ("welcome/dashboard");
+                }
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Please login first');
+                redirect ("welcome/loginform");
+            }
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }
+
+    }
+    public function retriveAccess($id)
+    {
+        if( $this->session->userdata('status')==1)
+        {
+            if($this->session->userdata('login')==1)
+            {    
+                if($this->session->userdata('admin_email')==$this->session->userdata('email'))
+                {    
+                    $info = $this->school->retriveAdminAccess($id);
+                    $this->session->set_userdata($info);
+                    redirect("welcome/users");
+                }
+                else
+                {
+                    $this->session->set_flashdata('msg','Access Denied');
+                    redirect ("welcome/dashboard");
+                }
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Please login first');
+                redirect ("welcome/loginform");
+            }
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }
+
+    }
+    public function users_search()
+    {
+        if( $this->session->userdata('status')==1)
+        {
+            if($this->session->userdata('login')==1)
+            {    
+                $id = $this->input->get('id');
+                $name = $this->input->get('name');
+                $email = $this->input->get('email');
+                $phone = $this->input->get('phone');
+                $this->load->library('pagination');
+                $config['base_url'] = base_url("welcome/users_search/");
+                $config['per_page'] = 5;
+                $config['total_rows'] = $this->school->userSearchRows($id,$name,$email,$phone);
+                $config['full_tag_open'] = "<ul class='pagination'>";
+                $config['full_tag_close'] = "</ul>";
+                $config['next_tag_open'] = "<li>";
+                $config['next_tag_close'] = "</li>";
+                $config['first_tag_open'] = "<li>";
+                $config['first_tag_close'] = "</li>";
+                $config['first_link'] = false;
+                $config['last_link'] = false;
+                // $config['use_page_numbers'] = TRUE;
+                $config['enable_query_strings'] = TRUE;  
+                $config['reuse_query_string']=TRUE;
+                $config['last_tag_open'] = "<li>";
+                $config['last_tag_close'] = "</li>";
+                $config['prev_tag_open'] = "<li>";
+                $config['prev_tag_close'] = "</li>";
+                $config['num_tag_open'] = "<li>";
+                $config['num_tag_close'] = "</li>";
+                $config['cur_tag_open'] = "<li class='active'><a>";
+                $config['cur_tag_close'] = "</a></li>";
+                $this->pagination->initialize($config);
+                $data['users_info'] = $this->school->searchUsers($id,$name,$email,$phone,$config['per_page'], $this->uri->segment(3));
+                $data['userSearchRows'] = $this->school->userSearchRows($id,$name,$email,$phone);
+                $this->load->view('users_search',$data);
+            }
+            else
+            {
+                $this->session->set_flashdata('msg','Please login first');
+                redirect ("welcome/loginform");
+            }
+        }
+        else
+        {
+           $this->session->set_flashdata('msg','You have been blocked by the service provider please wait for 60 days.');
+           redirect("welcome/loginform");
+        }       
+    }
+    public function block($id)
+    {
+        $this->school->block_user($id);
+        redirect("welcome/users");
+    }
+    public function unblock($id)
+    {
+        $this->school->unblock_user($id);
+        redirect("welcome/users");
+    }
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -6,10 +6,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/profile.css"); ?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/dash.css"); ?>">
 </head>
 	<body style="background-color: #edf1f5;">
-        <nav class="navbar navbar-inverse">
+	    <nav class="navbar navbar-inverse">
             <div class="">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -76,69 +76,83 @@
                 </div>
             </div>
         </nav>
-        <?php if($this->session->flashdata('msg')): ?>
-        <div class="alert alert-danger">
-            <b>Error: </b><?php echo $this->session->flashdata('msg'); ?>
-        </div>
-        <?php endif; ?>
-        <?php if($this->session->flashdata('cmsg')): ?>
-        <div class="alert alert-success">
-            <b>Success: </b><?php echo $this->session->flashdata('cmsg'); ?>
-        </div>
-        <?php endif; ?>
 		<div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-offset-3 col-lg-6">
-                    <div class=" white-box box-shadow">
-                        <div class="container-fluid">
-                	        <div class="row">
-                	            <div class="col-lg-offset-3 col-lg-9 col-md-offset-4 col-md-7 col-sm-offset-4 col-sm-7 col-xs-offset-3 col-xs-7">
-                	         	    <div class="">
-                 	         	   		<img class="img-circle img-responsive" style="" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>"> 
-                	                </div>         	
-                	         	</div>
-                	        </div>
-                	        <div class="row">
-                	        	<div class="col-lg-offset-9 col-lg-3">
-                	         		<div class="text-siz">
-                	         		    <h3><a href="<?php echo base_url("welcome/edit_profile"); ?>">Edit Profile</a></h3>
-                	         	    </div>
-                	         	</div>
-                	        </div>
-                	        <div class="">
-                    	        <hr>
-                    	        <form>
-                    	        	<div class="row">
-                    	        		<div class="col-lg-12">
-                    	        			<div class="text-font">
-                    	        				<strong>Name:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('name'); ?>" readonly>
-                    	        		    </div>
-                    	        		</div>        		
-                    	        	</div>
-                    	        	<hr>
-                    	        	<div class="row">
-                    	        		<div class="col-lg-12">
-                    	        			<div class="text-font">
-                    	        				<strong>Username:</strong><input class="form-control" type="text" name="name" value="<?php echo $this->session->userdata('email'); ?>" readonly>
-                    	        		    </div>
-                    	        		</div>	
-                    	        	</div>
-                    	        	<hr>
-                    	        	<div class="row">
-                    	        		<div class="col-lg-12">
-                    	        			<div class="text-font">
-                    	        				<strong>Phone:</strong><input class="form-control" type="text" name="phone" value="<?php echo $this->session->userdata('phone'); ?>" readonly>
-                    	        		    </div>
-                    	        		</div>	
-                    	        	</div>
-                    	        	<hr>
-                    	        </form>
-                	        </div>
-                        </div>    
-                    </div>
-                </div>    
-            </div>    
-        </div>
-        <div class="footer"></div>
+		    <form method="get" action="<?php echo base_url("welcome/search_items"); ?>">
+		    	<div class="search-box">
+	            	<div class="row">
+	            		<div class="col-lg-3">
+	            			<label>Unique Id</label>
+	            			<input class="form-control" type="text" name="id" placeholder="Unique Id" value="<?php if(isset($_GET['id'])){echo $_GET['id'];} ?>">
+	            		</div>
+	            		<div class="col-lg-3">
+	            			<label>Name</label>
+	            			<input class="form-control" type="text" name="name" placeholder="Name" value="<?php if(isset($_GET['name'])){echo $_GET['name'];} ?>">
+	            		</div>
+	            		<div class="col-lg-3">
+	            			<label>Category</label>
+
+	            			<select class="form-control" name="category">
+	            				<option value="">Category</option>
+	            				<?php foreach($category_info as $c): ?>
+	            				<option value="<?php echo $c['id']; ?>" <?php if(isset($_GET['category'])){ if($_GET['category']==$c['id']){echo "selected";}} ?> ><?php echo $c['name']; ?></option>
+	            			    <?php endforeach; ?>
+	            			</select>
+	            		</div>
+	            		<div class="col-lg-2" style="margin-top: 25px; margin-bottom: 15px;"> 
+	            			<button class="form-control btn btn-primary btn-block" type="submit">Search</button>
+	            		</div>
+	            		<div class="col-lg-1" style="margin-top: 25px; margin-bottom: 15px;"> 
+	            			<a href="<?php echo base_url("welcome/modify_items"); ?>" class="btn btn-danger btn-block">Reset</a>
+	            		</div>
+	            	</div>
+	            </div>
+			</form>
+			<?php  ?>
+			<div class="white-box">
+				<b>Total Items:</b><p class="pull-right"><?php if($rows_info){echo $rows_info;}else{echo 0;} ?></p>
+			</div>
+			<?php if($this->session->flashdata('msg')): ?>
+			<div class="alert alert-danger">
+				<?php echo $this->session->flashdata('msg'); ?>
+			</div>
+		    <?php endif; ?>
+		    <?php if($search_result): ?>
+			<div class="table-responsive">
+				<table class="table">
+			     	<tr style="background-color: #2cabe3;">
+			     		<th style="padding: 10px;">Id:</th>
+			     		<th style="padding: 10px;">Name:</th>
+			     		<th style="padding: 10px;">Category:</th>
+			     		<th class="hidden-xs" style="padding: 10px;">Description:</th>
+			     		<th style="padding: 10px;">Image:</th>
+			     		<th style="padding: 10px;">Delete:</th>
+			     		<th style="padding: 10px;">Edit:</th>
+			     	</tr>
+			        <?php foreach($search_result as $m): ?>
+			     	<tr style="text-align: justify;">
+			     		<td style="padding: 10px;"><?php echo $id = $m['id']; ?></td>
+			            <td style="padding: 10px;"><?php echo $m['name']; ?></td>
+			            <?php $category = getName($m['category']); foreach($category as $c): ?>
+			            <td style="padding: 10px;"><?php echo $c['name']; ?></td>
+			            <?php endforeach; ?>
+			            <td class="hidden-xs" style="padding: 10px;"><?php echo $m['description']; ?></td>
+			     		<td style="padding: 10px;"><img style="height: 120px; width: 140px;" src="<?php echo base_url().'uploads/'.$m['image']; ?>"></td>
+			            <td style="padding: 10px;"><a href="<?php echo base_url("welcome/delete/$id"); ?>">Delete</a></td>
+			            <td style="padding: 10px;"><a href="<?php echo base_url("welcome/edit/$id"); ?>">Edit</a></td>     		
+			     	</tr>	
+			        <?php endforeach; ?>
+			        
+			        <tr>
+			            <td colspan="7" align="center"><?php ?></td>
+			        </tr>
+			        <div class="clearfix"></div>
+			    </table>
+			</div>
+			<?php endif; ?>
+			<div class="page">
+				<?php echo $this->pagination->create_links(); ?>
+			</div>
+		</div>
+		<div class="footer" style="background-color: white; height: 60px;"></div>
 	</body>
-</html>	
+</html>
