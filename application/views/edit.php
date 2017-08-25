@@ -42,7 +42,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown user-info">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                            <img class="img-circle" style="width: 42px;height: 39px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
                             <b><?php echo $this->session->userdata('name'); ?></b>
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-user">
@@ -116,6 +116,6 @@
                 </div>
             </div>      	
 		</div>
-		<div style="background-color: white; height: 50px;"></div>
+		<div class="footer"></div>
 	</body>
 </html>			

@@ -36,9 +36,9 @@
 .header{
 	margin-top: 20px;
 }
-.img-set{
-	width: 50px;
-	height: 50px;
+.img-set {
+    width: 60px;
+    height: 64px;
 }
 .navbar-brand {
     float: left;
@@ -86,4 +86,25 @@
 		height: 50px;
 		margin-top: 18px;
 	}
+}
+@media (max-width: 400px)
+{
+    .ul_tabs > li > a {
+    text-decoration: none;
+    font-family: Helvetica;
+    font-size: 14px;
+    color: #999;
+    line-height: 14px;
+    padding: 8px;
+    display: block;
+    transition: all 0.5s;
+    }
+}
+@media (max-width: 400px)
+{
+    .img-set{
+        width: 50px;
+        height: 50px;
+        margin-top: 0px;
+    }
 }

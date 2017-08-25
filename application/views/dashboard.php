@@ -42,7 +42,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown user-info">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                            <img class="img-circle" style="width: 42px;height: 39px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
                             <b><?php echo $this->session->userdata('name'); ?></b>
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-user">
@@ -87,12 +87,9 @@
 			<div class="row">
 			    <?php foreach($category_info as $c): ?>
 			    	<input type="hidden" name="id" value="<?php echo $id = $c['id']; ?>">	
-				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-					<div class="hidden-xs">
-						<a href="<?php echo base_url("welcome/categories/$id"); ?>"><img style="height: 245px;width: 305px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
-                    </div>
-                    <div class="hidden-lg hidden-md hidden-sm">
-                        <a href="<?php echo base_url("welcome/categories/$id"); ?>"><img class="img-responsive" style="height: 300px;width: 763px;" src="<?php echo base_url().'uploads/'.$c['image']; ?>" class="img-responsive"></a>
+				<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
+					<div class="">
+						<a href="<?php echo base_url("welcome/categories/$id"); ?>"><img class="img-responsive resp-img" src="<?php echo base_url().'uploads/'.$c['image']; ?>"></a>
                     </div>    
                     <div class="categories box-shadow">    
 						<h1 style="text-align: center;"><a href="<?php echo base_url("welcome/categories/$id"); ?>"><?php echo $c['name'] ?></a></h1>

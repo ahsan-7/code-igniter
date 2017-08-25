@@ -6,12 +6,39 @@
     background-color: white;
     font-size: 18px;
 }
+.resp-img{
+    height: 245px;
+    width: 307px;
+}
+@media(max-width: 767px) and (min-width: 687px){
+    .categories {
+    border: 1px solid white;
+    background-color: white;
+    text-align: justify;
+    padding-top: 0px;
+    margin-bottom: 10px;
+    width: 305px;
+}
+}
+@media(max-width: 500px){
+    .resp-img{
+    height: 110px;
+    width: 305px;
+    }
+}
 .categories {
     border: 1px solid white;
     background-color: white;
     text-align: justify;
     padding-top: 0px;
     margin-bottom: 10px;
+}
+@media(max-width: 500px){
+    .categories>h1>a {
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    }
 }
 .navbar-white{
     margin-top: -20px; 
@@ -70,7 +97,7 @@ tr:nth-child(odd){background-color: white;}
     background-color: white;
     text-align: center;
     margin-bottom: 20px;
-    margin-top: -13px;
+    margin-top: -21px;
 }
 .white-box2{
     background-color: white;

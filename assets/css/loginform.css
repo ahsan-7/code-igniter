@@ -36,9 +36,9 @@
 .header{
 	margin-top: 20px;
 }
-.img-set{
-	width: 50px;
-	height: 50px;
+.img-set {
+    width: 60px;
+    height: 64px;
 }
 .navbar-brand {
     float: left;
@@ -93,4 +93,25 @@
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
+}
+@media (max-width: 400px)
+{
+    .ul_tabs > li > a {
+    text-decoration: none;
+    font-family: Helvetica;
+    font-size: 14px;
+    color: #999;
+    line-height: 14px;
+    padding: 8px;
+    display: block;
+    transition: all 0.5s;
+    }
+}
+@media (max-width: 400px)
+{
+    .img-set{
+        width: 50px;
+        height: 50px;
+        margin-top: 0px;
+    }
 }

@@ -1,12 +1,15 @@
 <html>
 <head>
-  <title>MyDashboard</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/category.css"); ?>">
+    <title>MyDashboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/category.css"); ?>">
+    <script src="<?php echo base_url("assets/js/jquery-1.11.3.min.js"); ?>"></script> 
+    <link href="<?php echo base_url("assets/css/imageviewer.css"); ?>"  rel="stylesheet" type="text/css" />
+    <script src="<?php echo base_url("assets/js/imageviewer.js"); ?>"></script>
 </head>
 	<body style="background-color: #edf1f5;">
         <nav class="navbar navbar-inverse">
@@ -42,7 +45,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li class="dropdown user-info">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <img class="img-circle" style="width: 46px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>">
+                            <img class="img-circle gallery-items" style="width: 42px;height: 39px; margin-bottom: -8px; margin-top: -13px;" src="<?php echo base_url().'uploads/'.$this->session->userdata('image'); ?>"">
                             <b><?php echo $this->session->userdata('name'); ?></b>
                             <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-user">
@@ -85,10 +88,10 @@
 	    	<div class="row">
 	    		<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 	    			<div class="hidden-xs">
-	    				<img style="width: 420px;height: 240px;" src="<?php echo base_url().'uploads/'.$category_info['image']; ?>" class="img-responsive">
+	    				<img style="width: 420px;height: 240px;" src="<?php echo base_url().'uploads/'.$category_info['image']; ?>" class="gallery-items img-responsive">
 	    			</div>
                     <div class="hidden-lg hidden-md hidden-sm">
-                        <img style="width: 766px;height: 300px;" src="<?php echo base_url().'uploads/'.$category_info['image']; ?>" class="img-responsive">
+                        <img style="width: 766px;height: 300px;" src="<?php echo base_url().'uploads/'.$category_info['image']; ?>" class="gallery-items img-responsive">
                     </div>
 	    		</div>
 	    		<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
@@ -103,10 +106,10 @@
 	    		<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
 	    			<div class="">
 	    				<div class="hidden-xs">   
-                           <img style="height: 230px;width: 307px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>" class="img-responsive">
+                           <img style="height: 230px;width: 307px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>" class="gallery-items img-responsive">
                         </div>
                         <div class="hidden-lg hidden-md hidden-sm">
-                            <img class="img-responsive" style="width: 766px;height: 300px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>">
+                            <img class="gallery-items img-responsive" style="width: 766px;height: 300px;" src="<?php echo base_url().'uploads/'.$co['image']; ?>">
 	    				</div>
                         <div class="text-justify box-shadow">
                             <p style="padding-top: 10px;"><b>Name: </b><?php echo $co['name']; ?></p>
@@ -123,5 +126,16 @@
 		<div class="footer">
 			
 		</div>
+        <script type="text/javascript">
+            $(function () {
+                var viewer = ImageViewer();
+                $('.gallery-items').click(function () {
+                    var imgSrc = this.src,
+                        highResolutionImage = $(this).data('high-res-img');
+             
+                    viewer.show(imgSrc, highResolutionImage);
+                });
+            });
+        </script>
 	</body>
 </html>			

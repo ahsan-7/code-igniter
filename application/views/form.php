@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>Demo</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/form.css"); ?>">
@@ -35,12 +35,12 @@
                             </div>
                             <div class="col-xs-offset-2 col-xs-3">
                                 <ul class="nav navbar-nav ul_tabs">
-                                    <li class="active"><a href="<?php echo base_url("welcome/loginform"); ?>">Sign In</a><span class="linea_bajo_nom"></span></li>
+                                    <li class="active"><a href="<?php echo base_url("welcome/loginform"); ?>">SignIn</a><span class="linea_bajo_nom"></span></li>
                                 </ul>    
                             </div>
                             <div class="col-xs-3">
                                 <ul class="nav navbar-nav ul_tabs">
-                                    <li class="hover"><a href="<?php echo base_url("welcome/form"); ?>">Sign Up</a><span class="linea_bajo_nomn"></span></li>
+                                    <li class="hover"><a href="<?php echo base_url("welcome/form"); ?>">SignUp</a><span class="linea_bajo_nomn"></span></li>
                                 </ul>
                             </div>    
                         </div>
